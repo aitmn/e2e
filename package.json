@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aitmn/crm-finleo.git"
+    "url": "git+https://gitlab.com/finleo/crm-e2e"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aitmn/crm-finleo/issues"
+    "url": "https://gitlab.com/finleo/crm-e2e/issues"
   },
-  "homepage": "https://github.com/aitmn/crm-finleo#readme",
+  "homepage": "https://gitlab.com/finleo/crm-e2e#readme",
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
     "codeceptjs": "^3.4.1",
