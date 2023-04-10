@@ -1,0 +1,29 @@
+{
+  "name": "crm-finleo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "codecept.conf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aitmn/crm-finleo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aitmn/crm-finleo/issues"
+  },
+  "homepage": "https://github.com/aitmn/crm-finleo#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "codeceptjs": "^3.4.1",
+    "dotenv": "^16.0.3",
+    "playwright": "1.18"
+  },
+  "dependencies": {
+    "codeceptjs-chai": "^2.3.4"
+  }
+}
