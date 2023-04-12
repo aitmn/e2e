@@ -39,7 +39,7 @@
 
 1. Склонируйте проект с репозитория Gitlab:
  
-git clone <project-url>
+`git clone <project-url>`
 
 2. Установите зависимости с помощью npm:
 
@@ -52,6 +52,7 @@ git clone <project-url>
 ## Как установить
 
 Для тестов используется фреймворк CodeceptJS с библиотекой playwright
+
 Для установки фреймворка воспользоваться командой
 
 `npm install codeceptjs playwright --save`
