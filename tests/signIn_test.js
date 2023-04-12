@@ -1,4 +1,3 @@
-const assert = require('assert')
 const dotenv = require('dotenv');
 dotenv.config()
 const { faker } = require('@faker-js/faker')
@@ -10,34 +9,26 @@ Before(( { I }) => {
   });
   
 Scenario('Успешная авторизация клиентом', ({ I, signInPage }) => {
-    const email = process.env.CLIENT_EMAIL
-    const password = process.env.BASE_PASSWORD
-    
-    signInPage.signIn(email, password)
+   
+    signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD)
     I.seeInCurrentUrl('/home')
 }),
 
 Scenario('Успешная авторизация сотрудником', ({ I, signInPage }) => {
-    const email = process.env.ADMIN_EMAIL
-    const password = process.env.BASE_PASSWORD
     
-    signInPage.signIn(email, password)
+    signInPage.signIn(process.env.ADMIN_EMAIL, process.env.BASE_PASSWORD)
     I.seeInCurrentUrl('/orders')
 }),
 
 Scenario('Успешная авторизация агентом', ({ I, signInPage }) => {
-    const email = process.env.AGENT_EMAIL
-    const password = process.env.BASE_PASSWORD
     
-    signInPage.signIn(email, password)
+    signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD)
     I.seeInCurrentUrl('/showcase')
 }),
 
 Scenario('Успешная авторизация партнером', ({ I, signInPage }) => {
-    const email = process.env.BANK_EMAIL
-    const password = process.env.BASE_PASSWORD
     
-    signInPage.signIn(email, password)
+    signInPage.signIn(eprocess.env.BANK_EMAIL, process.env.BASE_PASSWORD)
     I.seeInCurrentUrl('/orders')
 }),
 
@@ -54,16 +45,14 @@ Scenario('Попытка авторизации с незаполенными п
 }),
 
 Scenario('Попытка авторизации с незаполенным полем "Логин"', ({ I, signInPage}) =>{
-    const password = process.env.BASE_PASSWORD
 
-    signInPage.signIn('', password)
+    signInPage.signIn('', process.env.BASE_PASSWORD)
     I.seeInCurrentUrl(process.env.BASE_URL)
 }),
 
 Scenario('Попытка авторизации с незаполенным полем "Пароль"', ({ I, signInPage}) =>{
-    const email = process.env.ADMIN_EMAIL
 
-    signInPage.signIn(email, '')
+    signInPage.signIn(process.env.ADMIN_EMAIL, '')
     I.seeInCurrentUrl(process.env.BASE_URL)
 })
 
