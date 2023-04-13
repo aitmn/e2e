@@ -28,7 +28,7 @@ Scenario('Успешная авторизация агентом', ({ I, signInP
 
 Scenario('Успешная авторизация партнером', ({ I, signInPage }) => {
     
-    signInPage.signIn(eprocess.env.BANK_EMAIL, process.env.BASE_PASSWORD)
+    signInPage.signIn(process.env.BANK_EMAIL, process.env.BASE_PASSWORD)
     I.seeInCurrentUrl('/orders')
 }),
 
@@ -57,10 +57,8 @@ Scenario('Попытка авторизации с незаполенным по
 })
 
 Scenario('Попытка авторизации с невалидными данными', ({ I, signInPage }) =>{
-    const email = faker.internet.email(10)
-    const password = faker.internet.password(5)
     
-    signInPage.signIn(email, password)
+    signInPage.signIn(faker.internet.email(10), faker.internet.password(5))
     I.seeInCurrentUrl(process.env.BASE_URL)
 })
 
