@@ -10,7 +10,7 @@ module.exports = {
 
   buttons: {
     signInButton: 'button[type=submit]',
-    signUpButton: '.sc-eQtFQz',
+    signUpButton: '.MuiBox-root [type=button]',
     passwordRecoveryButton: '[href ="/password-recovery"]',
     telegramButton: '[href="https://t.me/finleo"]',
     dzenButton: '[href="https://dzen.ru/finleo"]'

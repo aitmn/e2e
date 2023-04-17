@@ -10,6 +10,6 @@ module.exports = {
     recoveryPassword(email) {
         I.fillField(this.emailField, email)
         I.click(this.recoveryButton)
-        I.wait(2)
-    } 
+        I.wait(5)
+    }
 }
