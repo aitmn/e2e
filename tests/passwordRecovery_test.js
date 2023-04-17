@@ -22,3 +22,17 @@ Scenario('Попытка восстановления пароля при вво
     const errorMessageText = await I.grabTextFrom('.cvFpKZ .MuiTypography-root')
     assert.equal(errorMessageText, 'Пользователь с таким адресом не найден')
 })
+
+Scenario('Кнопка "Восстановить" задизейблена если не заполнить поле', ({ I, passwordRecoveryPage }) =>{
+    
+    passwordRecoveryPage.recoveryButtonDisabled('')
+    I.seeInCurrentUrl('/password-recovery')
+})
+
+Scenario('Кнопка "Восстановить" задизейблена если ввести не email', async ({ I, passwordRecoveryPage }) =>{
+    
+    passwordRecoveryPage.recoveryButtonDisabled(faker.name.firstName(6))
+    I.seeInCurrentUrl('/password-recovery')
+    const errorMessageText = await I.grabTextFrom('.cvFpKZ .MuiTypography-root')
+    assert.equal(errorMessageText, 'Неверный email')
+})

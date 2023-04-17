@@ -11,5 +11,10 @@ module.exports = {
         I.fillField(this.emailField, email)
         I.click(this.recoveryButton)
         I.wait(5)
+    },
+
+    recoveryButtonDisabled(email){
+        I.fillField(this.emailField, email)
+        I.seeElement('#submit-reg-form[disabled]')
     }
 }
