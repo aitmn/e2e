@@ -22,8 +22,9 @@ exports.config = {
   },
   include: {
     I: './helpers/steps_file.js',
-    signInPage: "./pages/signInPage.js",
-    passwordRecoveryPage: "./pages/passwordRecoveryPage.js"
+    signInPage: './pages/signInPage.js',
+    passwordRecoveryPage: './pages/passwordRecoveryPage.js',
+    ordersPage: './pages/ordersPage.js'
   },
   name: 'CRM-E2E'
 }
