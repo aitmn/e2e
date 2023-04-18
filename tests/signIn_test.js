@@ -1,96 +1,92 @@
-const dotenv = require('dotenv')
-dotenv.config()
-const { faker } = require('@faker-js/faker')
+const dotenv = require("dotenv");
+dotenv.config();
+const { faker } = require("@faker-js/faker");
 
-Feature('Успешная аторизация, с переходом на стратовую страницу')
+Feature("Успешная аторизация, с переходом на стратовую страницу");
 
-Before(( { I }) => {
-    I.amOnPage(process.env.BASE_URL)
-  })
-  
-Scenario('Успешная авторизация клиентом', ({ I, signInPage }) => {
-   
-    signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD)
-    I.seeInCurrentUrl('/home')
-})
+Before(({ I }) => {
+  I.amOnPage(process.env.BASE_URL);
+});
 
-Scenario('Успешная авторизация сотрудником', ({ I, signInPage }) => {
-    
-    signInPage.signIn(process.env.ADMIN_EMAIL, process.env.BASE_PASSWORD)
-    I.seeInCurrentUrl('/orders')
-})
+Scenario("Успешная авторизация клиентом", ({ I, signInPage }) => {
+  signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD);
+  I.seeInCurrentUrl("/home");
+});
 
-Scenario('Успешная авторизация агентом', ({ I, signInPage }) => {
-    
-    signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD)
-    I.seeInCurrentUrl('/showcase')
-})
+Scenario("Успешная авторизация сотрудником", ({ I, signInPage }) => {
+  signInPage.signIn(process.env.ADMIN_EMAIL, process.env.BASE_PASSWORD);
+  I.seeInCurrentUrl("/orders");
+});
 
-Scenario('Успешная авторизация партнером', ({ I, signInPage }) => {
-    
-    signInPage.signIn(process.env.BANK_EMAIL, process.env.BASE_PASSWORD)
-    I.seeInCurrentUrl('/orders')
-})
+Scenario("Успешная авторизация агентом", ({ I, signInPage }) => {
+  signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
+  I.seeInCurrentUrl("/showcase");
+});
 
-Feature('Авторизация с некорректными данными')
+Scenario("Успешная авторизация партнером", ({ I, signInPage }) => {
+  signInPage.signIn(process.env.BANK_EMAIL, process.env.BASE_PASSWORD);
+  I.seeInCurrentUrl("/orders");
+});
 
-Before(( { I }) => {
-    I.amOnPage(process.env.BASE_URL)
-  })
+Feature("Авторизация с некорректными данными");
 
-Scenario('Попытка авторизации с незаполенными полями "Логин", "Пароль"', ({ I, signInPage}) =>{
+Before(({ I }) => {
+  I.amOnPage(process.env.BASE_URL);
+});
 
-    signInPage.signIn('','')
-    I.seeInCurrentUrl(process.env.BASE_URL)
-})
+Scenario(
+  'Попытка авторизации с незаполенными полями "Логин", "Пароль"',
+  ({ I, signInPage }) => {
+    signInPage.signIn("", "");
+    I.seeInCurrentUrl(process.env.BASE_URL);
+  }
+);
 
-Scenario('Попытка авторизации с незаполенным полем "Логин"', ({ I, signInPage}) =>{
+Scenario(
+  'Попытка авторизации с незаполенным полем "Логин"',
+  ({ I, signInPage }) => {
+    signInPage.signIn("", process.env.BASE_PASSWORD);
+    I.seeInCurrentUrl(process.env.BASE_URL);
+  }
+);
 
-    signInPage.signIn('', process.env.BASE_PASSWORD)
-    I.seeInCurrentUrl(process.env.BASE_URL)
-})
+Scenario(
+  'Попытка авторизации с незаполенным полем "Пароль"',
+  ({ I, signInPage }) => {
+    signInPage.signIn(process.env.ADMIN_EMAIL, "");
+    I.seeInCurrentUrl(process.env.BASE_URL);
+  }
+);
 
-Scenario('Попытка авторизации с незаполенным полем "Пароль"', ({ I, signInPage}) =>{
+Scenario("Попытка авторизации с невалидными данными", ({ I, signInPage }) => {
+  signInPage.signIn(faker.internet.email(10), faker.internet.password(5));
+  I.seeInCurrentUrl(process.env.BASE_URL);
+});
 
-    signInPage.signIn(process.env.ADMIN_EMAIL, '')
-    I.seeInCurrentUrl(process.env.BASE_URL)
-})
+Feature("Переход на другие формы");
 
-Scenario('Попытка авторизации с невалидными данными', ({ I, signInPage }) =>{
-    
-    signInPage.signIn(faker.internet.email(10), faker.internet.password(5))
-    I.seeInCurrentUrl(process.env.BASE_URL)
-})
+Before(({ I }) => {
+  I.amOnPage(process.env.BASE_URL);
+});
 
-Feature('Переход на другие формы')
+Scenario("Переход к форме восстановления пароля", ({ I, signInPage }) => {
+  signInPage.goToPasswordRecoveryPage();
+  I.seeInCurrentUrl("/password-recovery");
+});
 
-Before(( { I }) => {
-    I.amOnPage(process.env.BASE_URL)
-  })
+Scenario("Переход к форме регистрации", ({ I, signInPage }) => {
+  signInPage.goToSignUpPage();
+  I.seeInCurrentUrl("/signup");
+});
 
-Scenario('Переход к форме восстановления пароля', ({ I, signInPage }) =>{
+Scenario("Переход в телеграм канал", ({ I, signInPage }) => {
+  signInPage.goToTelegram();
+  I.switchToNextTab();
+  I.seeInCurrentUrl(process.env.TELEGRAM_URL);
+});
 
-    signInPage.goToPasswordRecoveryPage()
-    I.seeInCurrentUrl('/password-recovery')
-})
-
-Scenario('Переход к форме регистрации', ({ I, signInPage }) =>{
-
-    signInPage.goToSignUpPage()
-    I.seeInCurrentUrl('/signup')
-})
-
-Scenario('Переход в телеграм канал', ({ I, signInPage }) =>{
-    
-    signInPage.goToTelegram()
-    I.switchToNextTab()
-    I.seeInCurrentUrl(process.env.TELEGRAM_URL)
-})
-
-Scenario('Переход на канал в Дзене', ({ I, signInPage }) =>{
-    
-    signInPage.goToDzen()
-    I.switchToNextTab()
-    I.seeInCurrentUrl(process.env.DZEN_URL)
-})
-
+Scenario("Переход на канал в Дзене", ({ I, signInPage }) => {
+  signInPage.goToDzen();
+  I.switchToNextTab();
+  I.seeInCurrentUrl(process.env.DZEN_URL);
+});

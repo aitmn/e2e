@@ -1,30 +1,30 @@
 /** @type {CodeceptJS.MainConfig} */
-const dotenv = require('dotenv')
-dotenv.config()
+const dotenv = require("dotenv");
+dotenv.config();
 
 exports.config = {
-  tests: './tests/*_test.js',
-  output: './output',
+  tests: "./tests/*_test.js",
+  output: "./output",
   plugins: {
     chai: {
-      require: 'codeceptjs-chai'
-    }
+      require: "codeceptjs-chai",
+    },
   },
   helpers: {
     ChaiWrapper: {
-      require: 'codeceptjs-chai'
-  },
+      require: "codeceptjs-chai",
+    },
     Playwright: {
       url: process.env.BASE_URL,
       show: true,
-      browser: 'chromium'
+      browser: "chromium",
     },
   },
   include: {
-    I: './helpers/steps_file.js',
-    signInPage: './pages/signInPage.js',
-    passwordRecoveryPage: './pages/passwordRecoveryPage.js',
-    ordersPage: './pages/ordersPage.js'
+    I: "./helpers/steps_file.js",
+    signInPage: "./pages/signInPage.js",
+    passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
+    ordersPage: "./pages/ordersPage.js",
   },
-  name: 'CRM-E2E'
-}
+  name: "CRM-E2E",
+};
