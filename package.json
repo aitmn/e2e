@@ -24,6 +24,7 @@
     "playwright": "1.18"
   },
   "dependencies": {
+    "@codeceptjs/ui": "^0.5.0",
     "codeceptjs-chai": "^2.3.4"
   }
 }

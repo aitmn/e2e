@@ -2,6 +2,7 @@ const assert = require("assert");
 const dotenv = require("dotenv");
 dotenv.config();
 const { faker } = require("@faker-js/faker");
+const { errorMessage } = require("../pages/passwordRecoveryPage");
 
 Feature("Восстановления пароля");
 
@@ -22,9 +23,7 @@ Scenario(
   "Попытка восстановления пароля при вводе случайного email",
   async ({ I, passwordRecoveryPage }) => {
     passwordRecoveryPage.recoveryPassword(faker.internet.email());
-    const errorMessageText = await I.grabTextFrom(
-      ".cvFpKZ .MuiTypography-root"
-    );
+    const errorMessageText = await I.grabTextFrom(errorMessage);
     assert.equal(errorMessageText, "Пользователь с таким адресом не найден");
   }
 );
@@ -42,9 +41,7 @@ Scenario(
   async ({ I, passwordRecoveryPage }) => {
     passwordRecoveryPage.recoveryButtonDisabled(faker.name.firstName(6));
     I.seeInCurrentUrl("/password-recovery");
-    const errorMessageText = await I.grabTextFrom(
-      ".cvFpKZ .MuiTypography-root"
-    );
+    const errorMessageText = await I.grabTextFrom(errorMessage);
     assert.equal(errorMessageText, "Неверный email");
   }
 );
