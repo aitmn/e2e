@@ -1,8 +1,8 @@
 const { I } = inject();
 
 module.exports = {
-  buttons: {
-    
-  }
+  guaranteesSideBar: "body > .MuiDrawer-root > .MuiPaper-root"
+  
+
  
 }
