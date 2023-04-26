@@ -27,7 +27,8 @@ exports.config = {
     ordersPage: "./pages/ordersPage.js",
     appBarElement: "./elements/appBar.js",
     menuSidebarElement: "./elements/menuSidebar.js",
-    GuaranteesSideBarElement: "./elements/guaranteesSideBar.js"
+    GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
+    choseClientModalElement: "./elements/choseClientModal.js"
   },
   name: "CRM-E2E",
 };

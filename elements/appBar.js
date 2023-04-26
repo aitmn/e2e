@@ -12,6 +12,7 @@ module.exports = {
   
   clickOnCreateOrderButton(){
     I.click(this.buttons.createOrder)
+    I.wait(2)
     }
   }
 

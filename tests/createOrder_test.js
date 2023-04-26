@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
-const { guaranteesSideBar } = require("../elements/guaranteesSideBar");
+const {guaranteeTypeSideBar} = require("../elements/guaranteesSideBar");
+const { modalWindow } = require("../elements/choseClientModal");
 Feature("При клике на кнопку сайдбар продуктов открывается");
 
 Before(({ I, signInPage }) => {
@@ -9,23 +10,28 @@ Before(({ I, signInPage }) => {
   I.wait(3);
 });
 
-Scenario("По клику на кнопку из appBar, открывается сайдбар", ({ I, appBarElement }) => {
-  appBarElement.clickOnCreateOrderButton();
-  I.seeElement(guaranteesSideBar);
-});
+Scenario(
+  "По клику на кнопку из appBar, открывается сайдбар",
+  ({ I, appBarElement }) => {
+    appBarElement.clickOnCreateOrderButton();
+    I.seeElement(guaranteeTypeSideBar);
+  }
+);
 
-Scenario("По клику на кнопку из menuSideBar, открывается сайдбар", ({ I, menuSidebarElement }) => {
-  menuSidebarElement.clickOnCreateOrderButton();
-  I.seeElement(guaranteeTypeSideBar);
-});
+Scenario(
+  "По клику на кнопку из menuSideBar, открывается сайдбар",
+  ({ I, menuSidebarElement }) => {
+    menuSidebarElement.clickOnCreateOrderButton();
+    I.seeElement(guaranteeTypeSideBar);
+  }
+);
 
-Scenario.only("Выбор продукта", ({ I, appBarElement }) => {
-  appBarElement.clickOnCreateOrderButton();
-  const bg = locate('p')
-  .inside(locate('li').inside(locate('ul')).withText('Банковские гарантии'))
-  I.wait(2)
-  I.moveCursorTo(bg)
-  const ispolnenie = locate('p')
-  .inside(locate('li').inside(locate('ul')).withText('БГ на исполнение'))
-  I.seeElement(ispolnenie)
-})
+Scenario(
+  "Выбор продукта",
+  ({ I, appBarElement, GuaranteesSideBarElement }) => {
+    appBarElement.clickOnCreateOrderButton();
+    I.wait(2);
+    GuaranteesSideBarElement.choseGuarantee();
+    I.seeElement(modalWindow)
+  }
+);
