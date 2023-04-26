@@ -19,7 +19,13 @@ Scenario("По клику на кнопку из menuSideBar, открывает
   I.seeElement(guaranteeTypeSideBar);
 });
 
-Scenario("Выбор продукта", ({ I, appBarElement, guaranteeTypeSideBar }) => {
+Scenario.only("Выбор продукта", ({ I, appBarElement }) => {
   appBarElement.clickOnCreateOrderButton();
-  
+  const bg = locate('p')
+  .inside(locate('li').inside(locate('ul')).withText('Банковские гарантии'))
+  I.wait(2)
+  I.moveCursorTo(bg)
+  const ispolnenie = locate('p')
+  .inside(locate('li').inside(locate('ul')).withText('БГ на исполнение'))
+  I.seeElement(ispolnenie)
 })

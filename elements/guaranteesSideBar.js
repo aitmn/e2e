@@ -7,15 +7,16 @@ module.exports = {
     guaranteesSideBar: "body > .MuiDrawer-modal > .MuiDrawer-paper > .ScrollbarsCustom > div > div > span",
     search: "body > div > div > div > div > div > div > div > input",
     guaranteeType:{
-        bankovskieGarantii: "body > div > div > div > div > div > div > div > span > div > ul:nth-child(2)"
+     bg: ""
+ 
     },
     guarantees:{
-            bgNaIspolnenie: "body > div > div > div > div > div > span > div > div > ul > li:nth-child(2)"
+           
     },
 
 choseGuarantee(){
-    I.click(this.guaranteeType.bankovskieGarantii)
+    I.click(this.guaranteeType.bg)
     I.seeElement(this.guaranteesSideBar)
-    I.click(this.bgNaIspolnenie)
+    I.click()
 }
 }
