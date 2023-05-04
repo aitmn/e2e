@@ -30,5 +30,5 @@ exports.config = {
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
     choseClientModalElement: "./elements/choseClientModal.js"
   },
-  name: "CRM-E2E",
+  name: "crm-e2e",
 };
