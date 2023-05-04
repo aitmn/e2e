@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
 const { modalWindow } = require("../elements/choseClientModal");
+const { elements } = require("../elements/choseClientModal");
 Feature("При клике на кнопку сайдбар продуктов открывается");
 
 Before(({ I, signInPage }) => {
@@ -34,6 +35,7 @@ Scenario("Выбор продукта", ({ I, appBarElement, GuaranteesSideBarEl
 });
 
 Feature("Работа с модальным окном выбора клиента");
+
 Before(({ I, signInPage }) => {
   I.amOnPage(process.env.BASE_URL);
   signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
@@ -45,13 +47,29 @@ Scenario(
     appBarElement.clickOnCreateOrderButton();
     I.wait(2);
     GuaranteesSideBarElement.choseGuarantee();
-    choseClientModalElement.clickSubmitButton();
-  });
-  Scenario.only(
-    "Выбор клиента из списка",
-    ({ I, appBarElement, GuaranteesSideBarElement, choseClientModalElement }) => {
-      appBarElement.clickOnCreateOrderButton();
-      I.wait(2);
-      GuaranteesSideBarElement.choseGuarantee();
-      choseClientModalElement.choseClientFromList();
-    });
+    choseClientModalElement.clickCreateClientButton();
+  }
+);
+Scenario(
+  "Выбор клиента из списка и создание заявки",
+  ({ I, appBarElement, GuaranteesSideBarElement, choseClientModalElement }) => {
+    appBarElement.clickOnCreateOrderButton();
+    I.wait(2);
+    GuaranteesSideBarElement.choseGuarantee();
+    choseClientModalElement.choseClientFromList();
+    I.amOnPage("/create");
+  }
+);
+
+Scenario.only(
+  "Нельзя создать заявку не выбрав клиента",
+  ({ I, appBarElement, GuaranteesSideBarElement }) => {
+    appBarElement.clickOnCreateOrderButton();
+    I.wait(2);
+    GuaranteesSideBarElement.choseGuarantee();
+    I.wait(1)
+    I.dontSeeElement(elements.submitButton)
+  }
+);
+
+
