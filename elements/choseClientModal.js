@@ -7,15 +7,20 @@ module.exports = {
     createClientButton: ".MuiDialog-scrollPaper .MuiButton-root",
     closeModalButton: ".MuiBox-root .MuiSvgIcon-root > svg",
     clearClientInput: ".MuiInput-root .MuiAutocomplete-endAdornment",
-    submitButton:
-      ".MuiDialog-scrollPaper > div > div > div > header > div > button",
+    clientList: ".MuiAutocomplete-popperDisablePortal > div",
+    FirstItemInList: ".MuiAutocomplete-popper .ScrollbarsCustom-Content >li",
+    submitButton: ".MuiAutocomplete-root + div > button"
   },
-  clickSubmitButton() {
-    I.click(this.elements.submitButton);
+  clickCreateClientButton() {
+    I.click(this.elements.createClientButton);
     I.see("Добавить клиента");
   },
   choseClientFromList(){
     I.click(this.elements.choseClientInput)
+    I.wait(1)
+    I.click(this.elements.FirstItemInList)
+    I.wait(1)
+    I.seeElement(this.elements.submitButton, { visible: true})
+    I.click(this.elements.submitButton)
   }
-
 };
