@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.config = {
-  tests: "./tests/*_test.js",
+  tests: "./tests/*",
   output: "./output",
   plugins: {
     chai: {
