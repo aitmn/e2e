@@ -20,7 +20,7 @@ Scenario("Успешная авторизация сотрудником", ({ I,
 
 Scenario("Успешная авторизация агентом", ({ I, signInPage }) => {
   signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-  I.seeInCurrentUrl("/showcase");
+  I.seeInCurrentUrl("/home");
 });
 
 Scenario("Успешная авторизация партнером", ({ I, signInPage }) => {

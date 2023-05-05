@@ -9,15 +9,14 @@ Before(({ I, signInPage }) => {
   I.amOnPage(process.env.BASE_URL);
   signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
   I.wait(3);
-});
-
-Scenario(
-  "По клику на кнопку из appBar, открывается сайдбар",
-  ({ I, appBarElement }) => {
-    appBarElement.clickOnCreateOrderButton();
-    I.seeElement(guaranteeTypeSideBar);
-  }
-);
+}),
+  Scenario(
+    "По клику на кнопку из appBar, открывается сайдбар",
+    ({ I, appBarElement }) => {
+      appBarElement.clickOnCreateOrderButton();
+      I.seeElement(guaranteeTypeSideBar);
+    }
+  );
 
 Scenario(
   "По клику на кнопку из menuSideBar, открывается сайдбар",
@@ -61,15 +60,13 @@ Scenario(
   }
 );
 
-Scenario.only(
+Scenario(
   "Нельзя создать заявку не выбрав клиента",
   ({ I, appBarElement, GuaranteesSideBarElement }) => {
     appBarElement.clickOnCreateOrderButton();
     I.wait(2);
     GuaranteesSideBarElement.choseGuarantee();
-    I.wait(1)
-    I.dontSeeElement(elements.submitButton)
+    I.wait(1);
+    I.dontSeeElement(elements.submitButton);
   }
 );
-
-
