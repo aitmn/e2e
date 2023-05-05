@@ -1,3 +1,5 @@
+const { modalWindow } = require("./addClientModal");
+
 const { I } = inject();
 
 module.exports = {
@@ -13,7 +15,7 @@ module.exports = {
   },
   clickCreateClientButton() {
     I.click(this.elements.createClientButton);
-    I.see("Добавить клиента");
+    I.seeElement(modalWindow);
   },
   choseClientFromList(){
     I.click(this.elements.choseClientInput)
