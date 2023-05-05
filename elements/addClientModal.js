@@ -17,4 +17,6 @@ module.exports = {
     individualPerson: ".MuiFormGroup-root input[value='1']",
     individual: ".MuiFormGroup-root input[value='3']",
   },
+
+  
 };
