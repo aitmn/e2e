@@ -1,5 +1,5 @@
 const { radio } = require("../elements/addClientModal");
-
+const assert = require('assert');
 Feature("Создание клиента");
 Before(
   ({
@@ -19,7 +19,7 @@ Before(
   }
 );
 
-Scenario.only("Нельзя выбрать Физическое лицо", async ({ I }) => {
+Scenario("Нельзя выбрать Физическое лицо", async ({ I }) => {
   let isDisabled = await I.grabAttributeFrom(radio.individual, "aria-disabled");
-  if (isDisabled === "true") console.log("Нельзя выбрать Физ. лицо");
+  assert.equal(isDisabled, 'true', 'Нельзя выбрать физ. лицо')
 });
