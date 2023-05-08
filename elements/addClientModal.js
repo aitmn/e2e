@@ -13,9 +13,9 @@ module.exports = {
     close: "header > div > svg",
   },
   radio: {
-    legal: ".MuiFormGroup-root input[value='2']",
-    individualPerson: ".MuiFormGroup-root input[value='1']",
-    individual: ".MuiFormGroup-root input[value='3']",
+    legal: ".MuiFormGroup-row > label:nth-child(1) >.MuiRadio-root",
+    individualPerson: ".MuiFormGroup-row > label:nth-child(3) >.MuiRadio-root",
+    individual: ".MuiFormGroup-row > label:nth-child(2) >.MuiRadio-root",
   },
 
   
