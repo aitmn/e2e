@@ -56,7 +56,7 @@ Scenario(
     I.wait(2);
     GuaranteesSideBarElement.choseGuarantee();
     choseClientModalElement.choseClientFromList();
-    I.amOnPage("/create");
+    I.seeInCurrentUrl("/create");
   }
 );
 

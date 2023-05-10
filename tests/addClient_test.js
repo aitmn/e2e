@@ -1,6 +1,5 @@
 const { radio } = require("../elements/addClientModal");
 const assert = require("assert");
-const axios = require("");
 Feature("Проверка доступности ролей");
 Before(
   ({
@@ -25,7 +24,7 @@ Scenario("Нельзя выбрать Физическое лицо", async ({ I
     radio.individual,
     "aria-disabled"
   );
-  assert.equal(isDisabled, "true", "Нельзя выбрать физ. лицо");
+  assert.equal(isDisabled, "true", "Кнопка выбора Физического лица должна быть заблокирована, но она доступна");
 });
 
 Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
@@ -41,6 +40,29 @@ Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
     isEnabledIndividualPerson,
     isEnabledLegal,
     "false",
-    "Можно выбрать ИП, юр. лицо"
+    "Кнопки должны быть доступны, но они заблокированы"
   );
 });
+
+Feature("Создание Клиента")
+Before(
+  ({
+    I,
+    signInPage,
+    appBarElement,
+    GuaranteesSideBarElement,
+    choseClientModalElement,
+  }) => {
+    I.amOnPage(process.env.BASE_URL);
+    signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
+    I.wait(3);
+    appBarElement.clickOnCreateOrderButton();
+    I.wait(2);
+    GuaranteesSideBarElement.choseGuarantee();
+    choseClientModalElement.clickCreateClientButton();
+  }
+);
+Scenario("Создание нового клиента ИП", ({ I, addClientModalElement }) => {
+  addClientModalElement.choseIndividualPerson()
+  I.seeInCurrentUrl("/create")
+})
