@@ -104,15 +104,15 @@ Before(
     choseClientModalElement.clickCreateClientButton();
   }
 );
-Scenario("Создание нового клиента ИП", async({ I, addClientModalElement }) => {
+Scenario("Создание нового клиента ИП", async ({ I, addClientModalElement }) => {
   addClientModalElement.createIndividualPerson();
   I.waitForNavigation(2);
   I.seeInCurrentUrl("/create");
-  I.wait(2)
+  I.wait(2);
   const clientName = await I.grabTextFrom(headers.client);
-  const guarantee = await I.grabTextFrom(headers.guarantee)
-  assert.equal(guarantee, "БГ на исполнение")
-  assert.equal(clientName, process.env.TEST_INDIVIDUAL_PERSON_NAME)
+  const guarantee = await I.grabTextFrom(headers.guarantee);
+  assert.equal(guarantee, "БГ на исполнение");
+  assert.equal(clientName, process.env.TEST_INDIVIDUAL_PERSON_NAME);
 });
 Scenario(
   "Клиент ИП не создастся, если он уже прикреплен",
@@ -130,15 +130,18 @@ Scenario(
 Из таблице Profiles и Users
 */
 
-Scenario("Создание нового клиента Юр. лицо", async({ I, addClientModalElement }) => {
-  addClientModalElement.createLegal();
-  I.waitForNavigation(2);
-  I.seeInCurrentUrl("/create");
-  const clientName = await I.grabTextFrom(headers.client);
-  const guarantee = await I.grabTextFrom(headers.guarantee)
-  assert.equal(guarantee, "БГ на исполнение")
-  assert.equal(clientName, process.env.TEST_LEGAL_NAME)
-});
+Scenario(
+  "Создание нового клиента Юр. лицо",
+  async ({ I, addClientModalElement }) => {
+    addClientModalElement.createLegal();
+    I.waitForNavigation(2);
+    I.seeInCurrentUrl("/create");
+    const clientName = await I.grabTextFrom(headers.client);
+    const guarantee = await I.grabTextFrom(headers.guarantee);
+    assert.equal(guarantee, "БГ на исполнение");
+    assert.equal(clientName, process.env.TEST_LEGAL_NAME);
+  }
+);
 
 Scenario(
   "Клиент Юр. лицо не создастся, если он уже прикреплен",
