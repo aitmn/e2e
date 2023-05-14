@@ -30,6 +30,7 @@ exports.config = {
     signInPage: "./pages/signInPage.js",
     passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
     ordersCreatePage: "./pages/ordersCreatePage.js",
+    ordersPartnersPage: "./pages/ordersPartnersPage.js",
     appBarElement: "./elements/appBar.js",
     menuSidebarElement: "./elements/menuSidebar.js",
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
