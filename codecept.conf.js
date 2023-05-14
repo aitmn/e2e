@@ -18,10 +18,15 @@ exports.config = {
       url: process.env.BASE_URL,
       show: true,
       browser: "chromium",
+      windowSize: '1920x1080',
+      desiredCapabilities: {
+        chromeOptions: {
+          args: ['--no-sandbox', '--disable-dev-shm-usage']
+        }
+      }
     },
   },
   include: {
-    I: "./helpers/steps_file.js",
     signInPage: "./pages/signInPage.js",
     passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
     ordersPage: "./pages/ordersPage.js",
