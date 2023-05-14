@@ -3,25 +3,10 @@ const { messages } = require("../elements/addClientModal");
 const { modalWindow } = require("../elements/choseClientModal");
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
 const { headers } = require("../pages/ordersCreatePage");
+const { hooks } = require("../helpers/hooks");
 const assert = require("assert");
 Feature("Работа с модальным окном");
-Before(
-  ({
-    I,
-    signInPage,
-    appBarElement,
-    GuaranteesSideBarElement,
-    choseClientModalElement,
-  }) => {
-    I.amOnPage(process.env.BASE_URL);
-    signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-    I.wait(3);
-    appBarElement.clickOnCreateOrderButton();
-    I.wait(2);
-    GuaranteesSideBarElement.choseGuarantee();
-    choseClientModalElement.clickCreateClientButton();
-  }
-);
+Before(hooks.createClient);
 Scenario(
   "При клике 'Назад', возвар к выбору клиента",
   ({ I, addClientModalElement }) => {
@@ -39,23 +24,7 @@ Scenario(
 );
 
 Feature("Проверка доступности ролей");
-Before(
-  ({
-    I,
-    signInPage,
-    appBarElement,
-    GuaranteesSideBarElement,
-    choseClientModalElement,
-  }) => {
-    I.amOnPage(process.env.BASE_URL);
-    signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-    I.wait(3);
-    appBarElement.clickOnCreateOrderButton();
-    I.wait(2);
-    GuaranteesSideBarElement.choseGuarantee();
-    choseClientModalElement.clickCreateClientButton();
-  }
-);
+Before(hooks.createClient);
 
 Scenario("Нельзя выбрать Физическое лицо", async ({ I }) => {
   const isDisabled = await I.grabAttributeFrom(
@@ -87,23 +56,7 @@ Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
 });
 
 Feature("Создание Клиента");
-Before(
-  ({
-    I,
-    signInPage,
-    appBarElement,
-    GuaranteesSideBarElement,
-    choseClientModalElement,
-  }) => {
-    I.amOnPage(process.env.BASE_URL);
-    signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-    I.wait(3);
-    appBarElement.clickOnCreateOrderButton();
-    I.wait(2);
-    GuaranteesSideBarElement.choseGuarantee();
-    choseClientModalElement.clickCreateClientButton();
-  }
-);
+Before(hooks.createClient);
 Scenario("Создание нового клиента ИП", async ({ I, addClientModalElement }) => {
   addClientModalElement.createIndividualPerson();
   I.waitForNavigation(2);

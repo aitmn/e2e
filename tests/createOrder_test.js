@@ -3,20 +3,17 @@ dotenv.config();
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
 const { modalWindow } = require("../elements/choseClientModal");
 const { elements } = require("../elements/choseClientModal");
+const { hooks } = require("../helpers/hooks");
 Feature("При клике на кнопку сайдбар продуктов открывается");
 
-Before(({ I, signInPage }) => {
-  I.amOnPage(process.env.BASE_URL);
-  signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-  I.wait(3);
-}),
-  Scenario(
-    "По клику на кнопку из appBar, открывается сайдбар",
-    ({ I, appBarElement }) => {
-      appBarElement.clickOnCreateOrderButton();
-      I.seeElement(guaranteeTypeSideBar);
-    }
-  );
+Before(hooks.agentSignIn);
+Scenario(
+  "По клику на кнопку из appBar, открывается сайдбар",
+  ({ I, appBarElement }) => {
+    appBarElement.clickOnCreateOrderButton();
+    I.seeElement(guaranteeTypeSideBar);
+  }
+);
 
 Scenario(
   "По клику на кнопку из menuSideBar, открывается сайдбар",
@@ -35,11 +32,7 @@ Scenario("Выбор продукта", ({ I, appBarElement, GuaranteesSideBarEl
 
 Feature("Работа с модальным окном выбора клиента");
 
-Before(({ I, signInPage }) => {
-  I.amOnPage(process.env.BASE_URL);
-  signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-  I.wait(3);
-});
+Before(hooks.agentSignIn);
 Scenario(
   "При нажатии 'Создать клиента', переход на модальное окно",
   ({ I, appBarElement, GuaranteesSideBarElement, choseClientModalElement }) => {
@@ -56,6 +49,7 @@ Scenario(
     I.wait(2);
     GuaranteesSideBarElement.choseGuarantee();
     choseClientModalElement.choseClientFromList();
+    I.wait(2)
     I.seeInCurrentUrl("/create");
   }
 );
