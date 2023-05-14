@@ -6,10 +6,13 @@ module.exports = {
     basePage: ({ I }) => {
       I.amOnPage(process.env.BASE_URL);
     },
-
     agentSignIn: ({ I, signInPage }) => {
       I.amOnPage(process.env.BASE_URL);
       signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
+    },
+    clientSingIn: ({ I, signInPage }) => {
+      I.amOnPage(process.env.BASE_URL);
+      signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD);
     },
     createClient: ({
       I,

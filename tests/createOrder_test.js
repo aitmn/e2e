@@ -30,7 +30,7 @@ Scenario("Выбор продукта", ({ I, appBarElement, GuaranteesSideBarEl
   I.seeElement(modalWindow);
 });
 
-Feature("Работа с модальным окном выбора клиента");
+Feature("Работа с модальным окном выбора клиента от роли агента");
 
 Before(hooks.agentSignIn);
 Scenario(
@@ -49,7 +49,7 @@ Scenario(
     I.wait(2);
     GuaranteesSideBarElement.choseGuarantee();
     choseClientModalElement.choseClientFromList();
-    I.wait(2)
+    I.wait(2);
     I.seeInCurrentUrl("/create");
   }
 );
@@ -62,5 +62,18 @@ Scenario(
     GuaranteesSideBarElement.choseGuarantee();
     I.wait(1);
     I.dontSeeElement(elements.submitButton);
+  }
+);
+
+Feature("Создание заявки от роли клиента");
+Before(hooks.clientSingIn);
+Scenario(
+  "При выборе продукта клиентом, переход к черновику заявки",
+  ({ I, appBarElement, GuaranteesSideBarElement }) => {
+    appBarElement.clickOnCreateOrderButton();
+    I.wait(2);
+    GuaranteesSideBarElement.choseGuarantee();
+    I.wait(1);
+    I.seeInCurrentUrl("/create");
   }
 );
