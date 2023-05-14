@@ -29,12 +29,12 @@ exports.config = {
   include: {
     signInPage: "./pages/signInPage.js",
     passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
-    ordersPage: "./pages/ordersPage.js",
+    ordersCreatePage: "./pages/ordersCreatePage.js",
     appBarElement: "./elements/appBar.js",
     menuSidebarElement: "./elements/menuSidebar.js",
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
     choseClientModalElement: "./elements/choseClientModal.js",
-    addClientModalElement: "./elements/addClientModal.js"
+    addClientModalElement: "./elements/addClientModal.js",
   },
   name: "crm-e2e",
 };
