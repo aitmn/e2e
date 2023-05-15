@@ -33,5 +33,11 @@ module.exports = {
       I.amOnPage(process.env.BASE_URL);
       signInPage.goToPasswordRecoveryPage();
     },
+    createOrder: ({ I, appBarElement, GuaranteesSideBarElement }) => {
+      appBarElement.clickOnCreateOrderButton();
+      I.wait(2);
+      GuaranteesSideBarElement.choseGuarantee();
+      I.wait(1);
+    }
   },
 };

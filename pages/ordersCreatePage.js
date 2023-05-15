@@ -14,6 +14,7 @@ module.exports = {
   buttons: {
     deleteDraft: ".MuiBox-root> div > button",
     submit: "button[type=submit]",
+    changeClient: "div:nth-child(5) > p"
   },
   checkboxes: {
     closedAuction: "input[name=closed_auction]",
@@ -49,10 +50,30 @@ module.exports = {
     raitingAKRA: "#mui-component-select-ratingAKRA",
   },
   lists: {
+    law: "body > div.MuiAutocomplete-popper > div",
+    currency: "#menu-currency .MuiPaper-root",
+    provision: "#menu-provision .MuiPaper-root",
+    raitingRA: "#menu-ratingRA .MuiPaper-root",
+    raitingAKRA: "#menu-ratingAKRA .MuiPaper-root",
+  },
+  listElements:{
     lawFz44: ".MuiAutocomplete-popper li:first-child > div",
     currencyRouble: ".MuiList-root > li:first-child",
-    noPovision: ".MuiPaper-root > ul > li:first-child",
+    noProvision: ".MuiPaper-root > ul > li:first-child",
     ruAAAraitingRA: ".MuiPaper-root > ul > li:first-child",
     AAAraitingAKRA: ".MuiPaper-root > ul > li:first-child",
   },
-};
+  choseLaw(){
+    I.click(this.selects.law)
+    I.seeElement(this.lists.law)
+    I.click(this.listElements.lawFz44)
+    },
+  choseNoticeDate(){
+    const today = new Date();
+    const formattedDate = `${today.getDate()} ${today.getMonth() + 1} ${today.getFullYear()}`;
+    I.fillField(this.fields.noticeDate, formattedDate)
+   },
+   
+  }
+
+ 
