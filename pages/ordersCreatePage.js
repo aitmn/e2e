@@ -1,3 +1,7 @@
+const dotenv = require("dotenv");
+dotenv.config();
+const { I } = inject()
+const assert = require("assert");
 module.exports = {
   headers: {
     guaranteeType: " .MuiBox-root:nth-child(3) > h3",
@@ -50,7 +54,7 @@ module.exports = {
     raitingAKRA: "#mui-component-select-ratingAKRA",
   },
   lists: {
-    law: "body > div.MuiAutocomplete-popper > div",
+    law: "body > div.MuiAutocomplete-popper",
     currency: "#menu-currency .MuiPaper-root",
     provision: "#menu-provision .MuiPaper-root",
     raitingRA: "#menu-ratingRA .MuiPaper-root",
@@ -60,20 +64,114 @@ module.exports = {
     lawFz44: ".MuiAutocomplete-popper li:first-child > div",
     currencyRouble: ".MuiList-root > li:first-child",
     noProvision: ".MuiPaper-root > ul > li:first-child",
-    ruAAAraitingRA: ".MuiPaper-root > ul > li:first-child",
-    AAAraitingAKRA: ".MuiPaper-root > ul > li:first-child",
+    raAAA: ".MuiPaper-root > ul > li:first-child",
+    akraAAA: ".MuiPaper-root > ul > li:first-child",
+  },
+    clickClosedAuction() {
+    I.click(this.checkboxes.closedAuction)
   },
   choseLaw(){
     I.click(this.selects.law)
     I.seeElement(this.lists.law)
     I.click(this.listElements.lawFz44)
     },
-  choseNoticeDate(){
-    const today = new Date();
-    const formattedDate = `${today.getDate()} ${today.getMonth() + 1} ${today.getFullYear()}`;
-    I.fillField(this.fields.noticeDate, formattedDate)
+    fillNoticeNumber(){
+    I.fillField(this.fields.noticeNumber, process.env.BG_NOTICE_NUMBER)
+    },
+    fillCompetitionLink(){
+    I.fillField(this.fields.competitionLink, process.env.BG_COMPETITION_LINK)
+    },
+    fillNoticeDate(){
+    I.fillField(this.fields.noticeDate, process.env.BG_NOTICE_DATE)
    },
-   
+   fillProtocolDate(){
+    I.fillField(this.fields.protocolDate, process.env.BG_PROTOCOL_DATE)
+   },
+   fillContractObject(){
+    I.fillField(this.fields.contractObject, process.env.BG_CONTRACT_OBJECT)
+   },
+   clickForeignCustomer(){
+    I.click(this.checkboxes.foreignCustomer)
+   },
+   fillCustomerInn(){
+    I.fillField(this.fields.customerInn, process.env.BG_CUSTOMER_INN)
+    I.click(this.fields.customerName)
+    I.wait(1)
+    const customerName = I.grabValueFrom(this.fields.customerName)
+    assert(customerName).to.equal(process.env.BG_CUSTOMER_NAME)
+   },
+   fillStartPrice(){
+    I.fillField(this.fields.contractStartPrice, process.env.BG_PRICE)
+   },
+   fillTargetPrice(){
+    I.fillField(this.fields.contractTargetPrice, process.env.BG_PRICE)
+   },
+   fillGuaranteePrice(){
+    I.fillField(this.fields.guaranteePrice, process.env.BG_PRICE)
+   },
+   choseCurrency(){
+    I.click(this.selects.currency)
+    I.seeElement(this.lists.currency)
+    I.click(this.listElements.currencyRouble)
+   },
+   clickAntiDumpingActive(){
+    I.click(this.checkboxes.antiDumpingActive)
+    const increasedPrice = I.grabValueFrom(this.fields.guaranteePrice)
+    assert.equal(increasedPrice, process.env.INCREASED_BG_PRICE)
+   },
+   fillGuaranteeFrom(){
+    const today = new Date().toLocaleDateString()
+    I.fillField(this.fields.guaranteeFrom, today)
+   },
+   fillGuaranteeTo(){
+    I.fillField(this.fields.guaranteeTo, process.env.GUARANTEE_TO)
+   },
+   clickAdvance(){
+    I.click(this.checkboxes.advance)
+    I.seeElement(this.fields.advancePercent)
+    I.seeElement(this.fields.advanceRub)
+   },
+   fillAdvanceRub(){
+    I.fillField(this.fields.advanceRub, process.env.BG_ADVANCE_RUB)
+    const advancePercent = I.grabValueFrom(this.fields.advancePercent)
+    assert.equal(advancePercent, process.env.BG_ADVANCE_PERCENT)
+   },
+   clickUndisputedOff(){
+    I.click(this.checkboxes.undisputedOff)
+   },
+   clickformPresents(){
+    I.click(this.checkboxes.formPresents)
+   },
+   choseProvision(){
+    I.click(this.selects.provision)
+    I.seeElement(this.lists.provision)
+    I.click(this.listElements.noProvision)
+   },
+   choseRaitingRA(){
+    I.click(this.selects.raitingRA)
+    I.seeElement(this.lists.raitingRA)
+    I.click(this.listElements.raAAA)
+   },
+   choseRaitingAKRA(){
+    I.click(this.selects.raitingAKRA)
+    I.seeElement(this.lists.raitingAKRA)
+    I.click(this.listElements.akraAAA)
+   },
+   fillComment(){
+    I.fillField(this.fields.comment, "TEST")
+   },
+   clickSubmit(){
+    I.click(this.buttons.submit)
+   },
+   clickDeleteDraft(){
+    I.click(this.buttons.deleteDraft)
+   },
+   goToPartnersTab(){
+    I.click(this.tabs.partners)
+   },
+   goToDocumentsTab(){
+    I.click(this.tabs.documents)
+   }
   }
 
  

@@ -18,7 +18,6 @@ exports.config = {
       url: process.env.BASE_URL,
       show: true,
       browser: "chromium",
-      windowSize: '1920x1080',
       desiredCapabilities: {
         chromeOptions: {
           args: ['--no-sandbox', '--disable-dev-shm-usage']
