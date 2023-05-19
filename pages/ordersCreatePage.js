@@ -109,10 +109,12 @@ module.exports = {
    fillGuaranteePrice(){
     I.fillField(this.fields.guaranteePrice, process.env.BG_PRICE)
    },
-   choseCurrency(){
+   async choseCurrency(){
     I.click(this.selects.currency)
     I.seeElement(this.lists.currency)
     I.click(this.listElements.currencyRouble)
+    const currency = await I.grabValueFrom(this.selects.currency)
+    assert.equal(currency, "₽")
    },
    async clickAntiDumpingActive(){
     I.click(this.checkboxes.antiDumpingActive)
@@ -142,10 +144,12 @@ module.exports = {
    clickformPresents(){
     I.click(this.checkboxes.formPresents)
    },
-   choseProvision(){
+   async choseProvision(){
     I.click(this.selects.provision)
     I.seeElement(this.lists.provision)
     I.click(this.listElements.noProvision)
+    const provision = await I.grabValueFrom(this.selects.provision)
+    assert.equal(provision, "Нет")
    },
    choseRaitingRA(){
     I.click(this.selects.raitingRA)
@@ -171,6 +175,29 @@ module.exports = {
    },
    goToDocumentsTab(){
     I.click(this.tabs.documents)
+   },
+   fillInformationStep(){
+    this.clickClosedAuction()
+    this.choseLaw()
+    this.fillNoticeNumber()
+    this.fillCompetitionLink()
+    this.fillNoticeDate()
+    this.fillProtocolDate()
+    this.fillContractObject()
+    this.fillCustomerInn()
+    this.fillStartPrice()
+    this.fillTargetPrice()
+    this.fillGuaranteePrice()
+    this.choseCurrency()
+    this.clickAntiDumpingActive()
+    this.fillGuaranteeFrom()
+    this.fillGuaranteeTo()
+    this.clickAdvance()
+    this.fillAdvanceRub()
+    this.clickUndisputedOff()
+    this.clickformPresents()
+    this.fillComment()
+    this.clickSubmit()
    }
   }
 
