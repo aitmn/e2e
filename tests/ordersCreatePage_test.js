@@ -5,7 +5,7 @@ const { hooks } = require('../helpers/hooks');
 Feature("Создание заявки");
 Before(hooks.ClientCreateDraft)
 
-Scenario.only("Создание заявки на БГ, с заполнением обязательных полей", ({ I, ordersCreatePage }) => {
+Scenario.only("Создание заявки на БГ, с заполнением обязательных полей", ({ I, ordersCreatePage }) => {;
     ordersCreatePage.clickClosedAuction()
     ordersCreatePage.choseLaw()
     ordersCreatePage.fillNoticeNumber()
@@ -18,4 +18,12 @@ Scenario.only("Создание заявки на БГ, с заполнение�
     ordersCreatePage.fillTargetPrice()
     ordersCreatePage.fillGuaranteePrice()
     ordersCreatePage.choseCurrency()
+    ordersCreatePage.clickAntiDumpingActive()
+    ordersCreatePage.fillGuaranteeFrom()
+    ordersCreatePage.fillGuaranteeTo()
+    ordersCreatePage.clickAdvance()
+    ordersCreatePage.fillAdvanceRub()
+    ordersCreatePage.clickUndisputedOff()
+    ordersCreatePage.clickformPresents()
+    ordersCreatePage.fillComment()
 })
