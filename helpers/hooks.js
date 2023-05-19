@@ -41,6 +41,7 @@ module.exports = {
     },
     ClientCreateDraft: ({ I, signInPage, GuaranteesSideBarElement, appBarElement}) =>{
     I.amOnPage(process.env.BASE_URL)
+    I.wait(1)
     signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD)
     appBarElement.clickOnCreateOrderButton();
       I.wait(2);
