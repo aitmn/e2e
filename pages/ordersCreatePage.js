@@ -93,12 +93,12 @@ module.exports = {
    clickForeignCustomer(){
     I.click(this.checkboxes.foreignCustomer)
    },
-   fillCustomerInn(){
+   async fillCustomerInn(){
     I.fillField(this.fields.customerInn, process.env.BG_CUSTOMER_INN)
     I.click(this.fields.customerName)
     I.wait(1)
-    const customerName = I.grabValueFrom(this.fields.customerName)
-    assert(customerName).to.equal(process.env.BG_CUSTOMER_NAME)
+    const customerName = await I.grabValueFrom(this.fields.customerName)
+    assert.equal(customerName, process.env.BG_CUSTOMER_NAME)
    },
    fillStartPrice(){
     I.fillField(this.fields.contractStartPrice, process.env.BG_PRICE)
@@ -114,9 +114,9 @@ module.exports = {
     I.seeElement(this.lists.currency)
     I.click(this.listElements.currencyRouble)
    },
-   clickAntiDumpingActive(){
+   async clickAntiDumpingActive(){
     I.click(this.checkboxes.antiDumpingActive)
-    const increasedPrice = I.grabValueFrom(this.fields.guaranteePrice)
+    const increasedPrice = await I.grabValueFrom(this.fields.guaranteePrice)
     assert.equal(increasedPrice, process.env.INCREASED_BG_PRICE)
    },
    fillGuaranteeFrom(){
@@ -124,16 +124,16 @@ module.exports = {
     I.fillField(this.fields.guaranteeFrom, today)
    },
    fillGuaranteeTo(){
-    I.fillField(this.fields.guaranteeTo, process.env.GUARANTEE_TO)
+    I.fillField(this.fields.guaranteeTo, process.env.BG_GUARANTEE_TO)
    },
    clickAdvance(){
     I.click(this.checkboxes.advance)
     I.seeElement(this.fields.advancePercent)
     I.seeElement(this.fields.advanceRub)
    },
-   fillAdvanceRub(){
+   async fillAdvanceRub(){
     I.fillField(this.fields.advanceRub, process.env.BG_ADVANCE_RUB)
-    const advancePercent = I.grabValueFrom(this.fields.advancePercent)
+    const advancePercent = await I.grabValueFrom(this.fields.advancePercent)
     assert.equal(advancePercent, process.env.BG_ADVANCE_PERCENT)
    },
    clickUndisputedOff(){
