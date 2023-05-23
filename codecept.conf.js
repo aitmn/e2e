@@ -30,6 +30,8 @@ exports.config = {
     passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
     ordersCreatePage: "./pages/ordersCreatePage.js",
     ordersPartnersPage: "./pages/ordersPartnersPage.js",
+    ordersDocumentsPage: "./pages/ordersDocumentsPage.js",
+    choseTaxPage: "./pages/choseTaxPage.js",
     appBarElement: "./elements/appBar.js",
     menuSidebarElement: "./elements/menuSidebar.js",
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
