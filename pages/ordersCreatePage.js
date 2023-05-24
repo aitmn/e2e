@@ -67,6 +67,10 @@ module.exports = {
     raAAA: ".MuiPaper-root > ul > li:first-child",
     akraAAA: ".MuiPaper-root > ul > li:first-child",
   },
+  messages:{
+    errors: "p[class='MuiFormHelperText-root Mui-error']",
+    noticeNumberError: "div.MuiBox-root > div > div > div > div > div > div > div > div > div > form > div > div:nth-child(3) > div > p"
+  },
   clickClosedAuction() {
     I.click(this.checkboxes.closedAuction);
   },
@@ -197,8 +201,20 @@ module.exports = {
     this.clickAdvance();
     this.fillAdvanceRub();
     this.clickUndisputedOff();
-    this.clickformPresents();
     this.fillComment();
     this.clickSubmit();
   },
+  fillOnlyRequiredFields(){
+    this.choseLaw();
+    this.fillNoticeNumber();
+    this.fillProtocolDate();
+    this.fillContractObject();
+    this.fillCustomerInn();
+    this.fillStartPrice();
+    this.fillTargetPrice();
+    this.fillGuaranteePrice();
+    this.fillGuaranteeFrom();
+    this.fillGuaranteeTo();
+    this.clickSubmit();
+  }
 };

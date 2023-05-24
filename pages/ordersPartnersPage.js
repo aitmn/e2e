@@ -34,4 +34,9 @@ module.exports = {
   clickBack(){
     I.click(this.buttons.back)
   },
+  async isSubmitDisabled(){
+    const isDisabled = await I.grabAttributeFrom(this.buttons.submit)
+    assert.equal(isDisabled, "Disabled")
+  },
+  
 };
