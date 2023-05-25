@@ -57,6 +57,17 @@ Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
 
 Feature("Создание Клиента");
 Before(hooks.createClient);
+
+Scenario.only(
+  "ИП не создастся, если ИНН не равен 12 символам",
+  async ({ I, addClientModalElement }) => {
+    addClientModalElement.createWrongIndividualPerson();
+    I.seeElement(messages.errorMessage);
+    const errorText = await I.grabTextFrom(messages.errorMessage);
+    assert.equal(errorText, "Требуемая длина ИНН - 12, сейчас - 10");
+  }
+);
+
 Scenario("Создание нового клиента ИП", async ({ I, addClientModalElement }) => {
   addClientModalElement.createIndividualPerson();
   I.waitForNavigation(2);
@@ -82,7 +93,15 @@ Scenario(
 После этого сценария необходимо удалить тестового юзера с инн = 503021987820.
 Из таблице Profiles и Users
 */
-
+Scenario(
+  "Юр. лицо не создастся, если ИНН не равен 10 символам",
+  async ({ I, addClientModalElement }) => {
+    addClientModalElement.createWrongLegal();
+    I.seeElement(messages.errorMessage);
+    const errorText = await I.grabTextFrom(messages.errorMessage);
+    assert.equal(errorText, "Требуемая длина ИНН - 10, сейчас - 12");
+  }
+);
 Scenario(
   "Создание нового клиента Юр. лицо",
   async ({ I, addClientModalElement }) => {

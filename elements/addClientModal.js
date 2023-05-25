@@ -22,7 +22,7 @@ module.exports = {
   },
 
   messages: {
-    innErrorMessage: "form > div > div > p",
+    errorMessage: "form > div > div > p",
   },
 
   createIndividualPerson() {
@@ -33,6 +33,11 @@ module.exports = {
     I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER);
     I.fillField(this.fields.email, faker.internet.email());
     I.click(this.buttons.sendEmail);
+    I.click(this.buttons.submit);
+  },
+  createWrongIndividualPerson() {
+    I.click(this.radio.individualPerson);
+    I.fillField(this.fields.inn, "1234567890");
     I.click(this.buttons.submit);
   },
   createAssignIndividualPerson() {
@@ -56,6 +61,13 @@ module.exports = {
     I.click(this.radio.legal);
     I.fillField(this.fields.inn, process.env.TEST_LEGAL_INN);
     I.click(this.buttons.submit);
+  },
+
+  createWrongLegal() {
+    I.click(this.radio.legal);
+    I.fillField(this.fields.inn, "123456789012");
+    I.click(this.buttons.submit);
+    I.wait(1);
   },
 
   backToChoseClient() {

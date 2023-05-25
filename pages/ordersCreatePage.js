@@ -182,6 +182,9 @@ module.exports = {
   goToDocumentsTab() {
     I.click(this.tabs.documents);
   },
+  clickDeleteDraft(){
+    I.click(this.buttons.deleteDraft)
+  },
   fillInformationStep() {
     this.clickClosedAuction();
     this.choseLaw();

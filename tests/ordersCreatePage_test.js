@@ -7,7 +7,7 @@ const { messages } = require("../pages/ordersCreatePage");
 Feature("Создание заявки");
 Before(hooks.ClientCreateDraft);
 
-Scenario.only(
+Scenario(
   "Если не заполнить обязательные поля, заявка не создается, появляется подсказка",
   async ({ I, ordersCreatePage }) => {
     ordersCreatePage.clickSubmit();
@@ -56,6 +56,5 @@ Scenario(
       assert.equal(errorMessage, "По данной закупке уже создана заявка");
     }
   )
-
   //После сценария необходимо удалить созданный order
 );
