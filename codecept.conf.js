@@ -27,6 +27,7 @@ exports.config = {
   },
   include: {
     signInPage: "./pages/signInPage.js",
+    signUpPage: "./pages/signUpPage.js",
     passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
     ordersCreatePage: "./pages/ordersCreatePage.js",
     ordersPartnersPage: "./pages/ordersPartnersPage.js",
