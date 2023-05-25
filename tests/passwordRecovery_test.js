@@ -3,13 +3,10 @@ const dotenv = require("dotenv");
 dotenv.config();
 const { faker } = require("@faker-js/faker");
 const { errorMessage } = require("../pages/passwordRecoveryPage");
-
+const { hooks } = require("../helpers/hooks");
 Feature("Восстановления пароля");
 
-Before(({ I, signInPage }) => {
-  I.amOnPage(process.env.BASE_URL);
-  signInPage.goToPasswordRecoveryPage();
-});
+Before(hooks.passwordRecovery);
 
 Scenario(
   "Восстановления пароля при вводе зарегистрированного email",

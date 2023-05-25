@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.config = {
-  tests: "./tests/*_test.js",
+  tests: "./tests/*",
   output: "./output",
   plugins: {
     chai: {
@@ -18,17 +18,25 @@ exports.config = {
       url: process.env.BASE_URL,
       show: true,
       browser: "chromium",
+      desiredCapabilities: {
+        chromeOptions: {
+          args: ['--no-sandbox', '--disable-dev-shm-usage']
+        }
+      }
     },
   },
   include: {
-    I: "./helpers/steps_file.js",
     signInPage: "./pages/signInPage.js",
     passwordRecoveryPage: "./pages/passwordRecoveryPage.js",
-    ordersPage: "./pages/ordersPage.js",
+    ordersCreatePage: "./pages/ordersCreatePage.js",
+    ordersPartnersPage: "./pages/ordersPartnersPage.js",
+    ordersDocumentsPage: "./pages/ordersDocumentsPage.js",
+    choseTaxPage: "./pages/choseTaxPage.js",
     appBarElement: "./elements/appBar.js",
     menuSidebarElement: "./elements/menuSidebar.js",
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
-    choseClientModalElement: "./elements/choseClientModal.js"
+    choseClientModalElement: "./elements/choseClientModal.js",
+    addClientModalElement: "./elements/addClientModal.js",
   },
-  name: "CRM-E2E",
+  name: "crm-e2e",
 };

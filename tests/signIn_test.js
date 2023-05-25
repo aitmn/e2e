@@ -1,12 +1,10 @@
 const dotenv = require("dotenv");
 dotenv.config();
 const { faker } = require("@faker-js/faker");
-
+const { hooks } = require("../helpers/hooks");
 Feature("Успешная аторизация, с переходом на стратовую страницу");
 
-Before(({ I }) => {
-  I.amOnPage(process.env.BASE_URL);
-});
+Before(hooks.basePage);
 
 Scenario("Успешная авторизация клиентом", ({ I, signInPage }) => {
   signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD);
@@ -20,7 +18,7 @@ Scenario("Успешная авторизация сотрудником", ({ I,
 
 Scenario("Успешная авторизация агентом", ({ I, signInPage }) => {
   signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
-  I.seeInCurrentUrl("/showcase");
+  I.seeInCurrentUrl("/home");
 });
 
 Scenario("Успешная авторизация партнером", ({ I, signInPage }) => {
@@ -30,9 +28,7 @@ Scenario("Успешная авторизация партнером", ({ I, sig
 
 Feature("Авторизация с некорректными данными");
 
-Before(({ I }) => {
-  I.amOnPage(process.env.BASE_URL);
-});
+Before(hooks.basePage);
 
 Scenario(
   'Попытка авторизации с незаполенными полями "Логин", "Пароль"',
@@ -65,9 +61,7 @@ Scenario("Попытка авторизации с невалидными дан
 
 Feature("Переход на другие формы");
 
-Before(({ I }) => {
-  I.amOnPage(process.env.BASE_URL);
-});
+Before(hooks.basePage);
 
 Scenario("Переход к форме восстановления пароля", ({ I, signInPage }) => {
   signInPage.goToPasswordRecoveryPage();
