@@ -5,8 +5,8 @@ const { modalWindow } = require("../elements/choseClientModal");
 const { elements } = require("../elements/choseClientModal");
 const { hooks } = require("../helpers/hooks");
 Feature("При клике на кнопку сайдбар продуктов открывается");
-
 Before(hooks.agentSignIn);
+
 Scenario(
   "По клику на кнопку из appBar, открывается сайдбар",
   ({ I, appBarElement }) => {
@@ -31,8 +31,8 @@ Scenario("Выбор продукта", ({ I, appBarElement, GuaranteesSideBarEl
 });
 
 Feature("Работа с модальным окном выбора клиента от роли агента");
-
 Before(hooks.agentSignIn);
+
 Scenario(
   "При нажатии 'Создать клиента', переход на модальное окно",
   ({ I, appBarElement, GuaranteesSideBarElement, choseClientModalElement }) => {
@@ -67,6 +67,7 @@ Scenario(
 
 Feature("Создание заявки от роли клиента");
 Before(hooks.clientSingIn);
+
 Scenario(
   "При выборе продукта клиентом, переход к черновику заявки",
   ({ I, appBarElement, GuaranteesSideBarElement }) => {
