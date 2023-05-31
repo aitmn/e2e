@@ -1,4 +1,6 @@
 const { I } = inject();
+const dotenv = require("dotenv");
+dotenv.config();
 
 module.exports = {
   elements: {
@@ -6,24 +8,29 @@ module.exports = {
       userClass: "#mui-component-select-userClass",
       userRole: "#mui-component-select-role_id",
       country: "#mui-component-select-country",
-      flag: "div:nth-child(1) >div > div> div > input[value = 'RU']",
+      flag: "form > div > div > div > div> div > div > div > div > div > div > div",
     },
     fields: {
+      firstName:"input[name='firstName]",
+      lastName: "input[name='lastName']",
       phone: "input[name='phone']",
-      email: "input[name='Email']",
+      email: "input[name='email']",
       password: "input[name='password']",
       passwordConfirm: "input[name='passwordConfirm']",
       inn: "input[name='inn']",
       nonResidentInn: "input[name='nonResidentInn']",
       nonResidentCompanyName: "input[name='nonResidentName']",
+      confirmCode: "input[name='confirmCode']"
     },
     buttons: {
       back: ".MuiButtonBase-root:nth-child(1)",
       showPassword: ".MuiButtonBase-root:nth-child(4)",
       submit: "#submit-reg-form",
+      confirmPhone: "button[name='confirmPhoneBtn']",
+      changePhoneNumber: "button[name='changePhoneNumber']"
     },
     checkboxes: {
-      confirmTerms: "input[name='term']",
+      confirmTerms: "input[type='checkbox']",
     },
     listElements: {
       userClasses: {
@@ -49,9 +56,11 @@ module.exports = {
       },
     },
     lists: "ul.MuiList-root",
+    flagList: "#menu- > div > ul"
   },
   credentials: {
     password: "12345",
+    confirmCode: "1111",
     Moldavia: {
       inn: "1010600022460",
       companyName: "SRL 'MOLDRETAIL GROUP'",
@@ -60,10 +69,10 @@ module.exports = {
     },
   },
   clickSubmitButton() {
-    I.click(this.buttons.submit);
+    I.click(this.elements.buttons.submit);
   },
   clickConfirmTerms() {
-    I.click(this.checkboxes.confirmTerms);
+    I.click(this.elements.checkboxes.confirmTerms);
   },
   choseLegal() {
     I.click(this.elements.selects.userClass);
@@ -71,21 +80,33 @@ module.exports = {
     I.wait(1);
     I.click(this.elements.listElements.userClasses.legal);
   },
+  choseIndividual(){
+    I.click(this.elements.selects.userClass)
+    I.seeElement(this.elements.lists);
+    I.wait(1);
+    I.click(this.elements.listElements.userClasses.individual);
+  },
   choseAgent() {
     I.click(this.elements.selects.userRole);
     I.seeElement(this.elements.lists);
     I.wait(1);
     I.click(this.elements.listElements.userRoles.agent);
   },
+  choseClient(){
+    I.click(this.elements.selects.userRole);
+    I.seeElement(this.elements.lists);
+    I.wait(1);
+    I.click(this.elements.listElements.userRoles.client);
+  },
   choseMoldavia() {
     I.click(this.elements.selects.country);
     I.seeElement(this.elements.lists);
-    I.click(this.elements.listElements.Moldavia);
+    I.click(this.elements.listElements.countries.Moldavia);
   },
-  choseMoldaviaCode() {
+  choseMoldaviaFlag() {
     I.click(this.elements.selects.flag);
-    I.wait(1);
-    I.click(this.elements.listElements.Moldavia);
+    I.seeElement(this.elements.flagList)
+    I.click(this.elements.listElements.countries.Moldavia)
   },
   createLegalAgentMoldova() {
     this.choseLegal();
@@ -94,23 +115,32 @@ module.exports = {
     I.dontSeeElement(this.elements.fields.inn);
     I.seeElement(this.elements.fields.nonResidentInn);
     I.seeElement(this.elements.fields.nonResidentCompanyName);
-    I.fillFIeld(
+    I.fillField(
       this.elements.fields.nonResidentInn,
       this.credentials.Moldavia.inn
     );
-    I.fillfiled(
+    I.fillField(
       this.elements.fields.nonResidentCompanyName,
       this.credentials.Moldavia.companyName
     );
-    this.choseMoldaviaCode();
-    I.fillFIeld(this.elements.fields.phone, this.credentials.Moldavia.phone);
+    this.choseMoldaviaFlag();
+    I.fillField(this.elements.fields.phone, this.credentials.Moldavia.phone);
+    I.wait(1)
+    I.seeElement(this.elements.buttons.confirmPhone)
+    I.click(this.elements.buttons.confirmPhone)
+    I.wait(1)
+    I.seeElement(this.elements.fields.confirmCode)
+    I.click(this.elements.fields.confirmCode)
+    I.fillField(this.elements.fields.confirmCode, this.credentials.confirmCode)
+    I.wait(1)
     I.fillField(this.elements.fields.email, this.credentials.Moldavia.email);
-    I.fillFIeld(this.elements.fields.password, this.credentials.password);
-    I.fillfield(
+    I.fillField(this.elements.fields.password, this.credentials.password);
+    I.fillField(
       this.elements.fields.passwordConfirm,
       this.credentials.password
     );
     this.clickConfirmTerms();
     this.clickSubmitButton();
   },
+
 };

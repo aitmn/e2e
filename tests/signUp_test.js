@@ -8,6 +8,6 @@ Scenario.only(
   ({ I, signInPage, signUpPage }) => {
     signInPage.goToSignUpPage();
     signUpPage.createLegalAgentMoldova();
-    I.amOnPage("/home");
+    I.seeInCurrentUrl("/home")
   }
 );
