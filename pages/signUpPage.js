@@ -11,7 +11,7 @@ module.exports = {
       flag: "form > div > div > div > div> div > div > div > div > div > div > div",
     },
     fields: {
-      firstName: "input[name='firstName]",
+      firstName: "input[name='firstName']",
       lastName: "input[name='lastName']",
       phone: "input[name='phone']",
       email: "input[name='email']",
@@ -104,16 +104,6 @@ module.exports = {
     I.wait(1);
     I.click(this.elements.listElements.userRoles.client);
   },
-  choseMoldavia() {
-    I.click(this.elements.selects.country);
-    I.seeElement(this.elements.lists);
-    I.click(this.elements.listElements.countries.Moldavia);
-  },
-  choseMoldaviaFlag() {
-    I.click(this.elements.selects.flag);
-    I.seeElement(this.elements.flagList);
-    I.click(this.elements.listElements.countries.Moldavia);
-  },
   confirmPhone() {
     I.click(this.elements.buttons.confirmPhone);
     I.wait(1);
@@ -132,7 +122,9 @@ module.exports = {
   createLegalAgentMoldova() {
     this.choseLegal();
     this.choseAgent();
-    this.choseMoldavia();
+    I.click(this.elements.selects.country);
+    I.seeElement(this.elements.lists);
+    I.click(this.elements.listElements.countries.Moldavia);
     I.dontSeeElement(this.elements.fields.inn);
     I.seeElement(this.elements.fields.nonResidentInn);
     I.seeElement(this.elements.fields.nonResidentCompanyName);
@@ -144,7 +136,9 @@ module.exports = {
       this.elements.fields.nonResidentCompanyName,
       this.credentials.MoldaviaLegal.companyName
     );
-    this.choseMoldaviaFlag();
+    I.click(this.elements.selects.flag);
+    I.seeElement(this.elements.flagList);
+    I.click(this.elements.listElements.countries.Moldavia);
     I.fillField(
       this.elements.fields.phone,
       this.credentials.MoldaviaLegal.phone
