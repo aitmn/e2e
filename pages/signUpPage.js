@@ -34,7 +34,8 @@ module.exports = {
     },
     errorMessages: {
       phoneError: "form > div > .MuiBox-root > div > p",
-      emailError: "form > .MuiBox-root:nth-child(4) > div > p"
+      emailError: "form > .MuiBox-root:nth-child(4) > div > p",
+      innError: "form > .MuiBox-root:nth-child(3) > div > p"
     },
     listElements: {
       userClasses: {
@@ -126,6 +127,10 @@ module.exports = {
   async seeEmailError(){
     const message = I.grabTextFrom(this.elements.errorMessages.emailError)
     assert.equal(message, 'Пользователь с таким email существует')
+  },
+  async seeInnError(){
+    const message = I.grabTextFrom(this.elements.errorMessages.innError)
+    assert.equal(message, 'ИНН занят, обратитесь в поддержку')
   },
   fillPassword() {
     I.fillField(this.elements.fields.password, this.credentials.password);

@@ -6,6 +6,7 @@ dotenv.config();
 
 Feature("Регистрация нового пользователя");
 Before(hooks.basePage);
+Before(hooks.signUpPage);
 
 Scenario(
   "Юридическое лицо, резидент Молдовы, агент",
@@ -28,7 +29,6 @@ Scenario(
 Scenario(
   "Ошибка если введенный номер телефона уже используется",
   ({ I, signInPage, signUpPage }) => {
-    signInPage.goToSignUpPage();
     I.fillField(elements.fields.phone, credentials.RussiaIndividual.phone);
     signUpPage.clickConfirmPhone();
     I.seeElement(elements.errorMessages.phoneError);
@@ -48,5 +48,17 @@ Scenario(
     signUpPage.seeEmailError();
     signUpPage.clickSubmitButton();
     I.seeInCurrentUrl("/signup");
-  }
+  },
+  Scenario(
+    "Ошибка если введенный ИНН уже используется",
+    ({ I, signInPage, signUpPage }) => {
+      signInPage.goToSignUpPage();
+      signUpPage.choseAgent();
+      I.fillField(elements.fields.inn, process.env.AGENT_INN);
+      signUpPage.clickSubmitButton();
+      signUpPage.seeInnError();
+      signUpPage.clickSubmitButton();
+      I.seeInCurrentUrl("/signup");
+    }
+  )
 );

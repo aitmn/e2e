@@ -6,6 +6,9 @@ module.exports = {
     basePage: ({ I }) => {
       I.amOnPage(process.env.BASE_URL);
     },
+    signUpPage: ( { signInPage } ) =>{
+      signInPage.goToSignUpPage()
+    },
     agentSignIn: ({ I, signInPage }) => {
       I.amOnPage(process.env.BASE_URL);
       signInPage.signIn(process.env.AGENT_EMAIL, process.env.BASE_PASSWORD);
