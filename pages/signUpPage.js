@@ -1,7 +1,7 @@
 const { I } = inject();
 const dotenv = require("dotenv");
 dotenv.config();
-
+const assert = require("assert");
 module.exports = {
   elements: {
     selects: {
@@ -31,6 +31,10 @@ module.exports = {
     },
     checkboxes: {
       confirmTerms: "input[type='checkbox']",
+    },
+    errorMessages: {
+      phoneError: "form > div > .MuiBox-root > div > p",
+      emailError: "form > .MuiBox-root:nth-child(4) > div > p"
     },
     listElements: {
       userClasses: {
@@ -104,6 +108,9 @@ module.exports = {
     I.wait(1);
     I.click(this.elements.listElements.userRoles.client);
   },
+  clickConfirmPhone(){
+    I.click(this.elements.buttons.confirmPhone)
+  },
   confirmPhone() {
     I.click(this.elements.buttons.confirmPhone);
     I.wait(1);
@@ -111,6 +118,14 @@ module.exports = {
     I.click(this.elements.fields.confirmCode);
     I.fillField(this.elements.fields.confirmCode, this.credentials.confirmCode);
     I.wait(1);
+  },
+  async seePhoneError(){
+    const message = I.grabTextFrom(this.elements.errorMessages.phoneError)
+    assert.equal(message, 'Пользователь с таким номером телефона уже зарегистрирован')
+  },
+  async seeEmailError(){
+    const message = I.grabTextFrom(this.elements.errorMessages.emailError)
+    assert.equal(message, 'Пользователь с таким email существует')
   },
   fillPassword() {
     I.fillField(this.elements.fields.password, this.credentials.password);
