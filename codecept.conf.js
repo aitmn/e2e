@@ -39,6 +39,9 @@ exports.config = {
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
     choseClientModalElement: "./elements/choseClientModal.js",
     addClientModalElement: "./elements/addClientModal.js",
+    offersSideBarElement: "./elements/OffersSideBar.js",
+    requestsSideBarElement: "./elements/requestsSideBar.js",
+    lastChatsSideBarElement: "./elements/lastChatsSideBar.js",
   },
   name: "crm-e2e",
 };
