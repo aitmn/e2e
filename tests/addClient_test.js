@@ -58,7 +58,7 @@ Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
 Feature("Создание Клиента");
 Before(hooks.createClient);
 
-Scenario.only(
+Scenario(
   "ИП не создастся, если ИНН не равен 12 символам",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createWrongIndividualPerson();
