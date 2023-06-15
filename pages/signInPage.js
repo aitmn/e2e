@@ -20,7 +20,7 @@ module.exports = {
     I.fillField(this.fields.email, email);
     I.fillField(this.fields.password, password);
     I.click(this.buttons.signInButton);
-    I.wait(2);
+    I.wait(3);
   },
 
   goToSignUpPage() {

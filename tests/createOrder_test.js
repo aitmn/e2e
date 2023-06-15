@@ -17,8 +17,8 @@ Scenario(
 
 Scenario(
   "По клику на кнопку из menuSideBar, открывается сайдбар",
-  ({ I, menuSidebarElement }) => {
-    menuSidebarElement.clickOnCreateOrderButton();
+  ({ I, menuSideBarElement }) => {
+    menuSideBarElement.clickOnCreateOrderButton();
     I.seeElement(guaranteeTypeSideBar);
   }
 );

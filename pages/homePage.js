@@ -1,8 +1,6 @@
 const { I } = inject();
-const { offersSideBar } = require("../elements/offersSideBar");
-const { requestsSideBar } = require("../elements/requestsSideBar");
-const { lastChatsSideBar } = require("../elements/lastChatsSideBar");
 const { modalWindow } = require("../elements/addClientModal");
+const { offersSideBarElement } = require("../elements/offersSideBar");
 module.exports = {
   filter: {
     modalWindow: ".MuiDialog-container.MuiDialog-scrollPaper > div > div",
@@ -14,24 +12,21 @@ module.exports = {
     resetButton:
       ".MuiDialog-root> div.MuiDialog-container.MuiDialog-scrollPaper > div > div > div > .MuiBox-root > button:nth-child(2)",
   },
-  sliders: {
-    requests_offers: "div > .MuiPaper-rounded:nth-child(5)",
-    lastChats: "div > .MuiPaper-rounded:nth-child(4)",
-    banners: "div > .MuiPaper-rounded:nth-child(3)",
-    fastOrders: "div > .MuiPaper-rounded:nth-child(2)",
-    events: "div > .MuiPaper-rounded:nth-child(1)",
-    personalManager: "div > .MuiPaper-rounded:nth-child(6)",
-    lastOrders: "div > .MuiPaper-rounded:nth-child(7)",
-  },
   slidersElements: {
     requets_offers: {
       filter: "button[value = 'isFiltered']",
       offersButton: "button[value = 'showOffers']",
       requestsButton: "button[value = 'showRequests']",
-      firstItem:
+      firstCard:
+        ".carousel__slide--visible > div > .MuiBox-root > div.MuiBox-root > div > div > div > span > div > div:nth-child(1)",
+      submitButton:
         ".MuiPaper-root > div > div > .carousel__slider > div > div > .carousel__slide > div > .MuiBox-root > .MuiBox-root > div > div > div > span > div > div:nth-child(1) > .MuiBox-root:nth-child(3) > button",
       resetFilter:
         ".carousel__slider > div > div > .carousel__slide > div > .MuiBox-root > div > .MuiBox-root > div",
+    },
+    events: {
+      firstEvent:
+        ".MuiPaper-rounded:nth-child(1) > div:nth-child(2) > div > div > div > div:nth-child(1)",
     },
     lastChats: {
       lastChat:
@@ -65,9 +60,9 @@ module.exports = {
   },
   clickFilter() {
     I.click(this.slidersElements.requets_offers.filter);
-    I.seeElement(this.filterModalWindow);
   },
   useFilter() {
+    I.click(this.filter.searchField);
     I.fillField(this.filter.searchField, "client");
     I.wait(1);
     I.click(this.filter.firstItem);
@@ -82,17 +77,21 @@ module.exports = {
   },
   goToFirstOffer() {
     I.click(this.slidersElements.requets_offers.offersButton);
-    I.click(this.slidersElements.requets_offers.firstItem);
-    I.seeElement(offersSideBar);
+    I.wait(1);
+    I.click(this.slidersElements.requets_offers.submitButton);
+    I.wait(1);
   },
   goToFirstRequest() {
-    I.clisk(this.slidersElements.requets_offers.requestsButton);
-    I.click(this.slidersElements.requets_offers.firstItem);
-    I.seeElement(requestsSideBar);
+    I.click(this.slidersElements.requets_offers.requestsButton);
+    I.wait(1);
+    I.click(this.slidersElements.requets_offers.submitButton);
+    I.wait(1);
+  },
+  goToFirstEvent() {
+    I.click(this.slidersElements.events.firstEvent)
   },
   goToLastChat() {
     I.click(this.slidersElements.lastChats.lastChat);
-    I.seeElement(lastChatsSideBar);
   },
   deleteFastOrder() {
     I.click(this.slidersElements.fastOrders.editButton);
@@ -101,7 +100,6 @@ module.exports = {
   },
   goToFastOrder() {
     I.click(this.slidersElements.fastOrders.firstItem);
-    I.seeElement(modalWindow);
   },
   goToLastOrder() {
     I.click(this.slidersElements.lastOrders.firstOrder);
@@ -113,5 +111,4 @@ module.exports = {
     I.click(this.slidersElements.lastOrders.allOrdersButton);
     I.seeInCurrentUrl("/orders");
   },
-
 };

@@ -21,6 +21,9 @@ module.exports = {
       I.amOnPage(process.env.BASE_URL);
       signInPage.signIn(process.env.ADMIN_EMAIL, process.env.BASE_PASSWORD); 
     },
+    clickOnHomeButton: ({ I, menuSideBarElement }) => {
+       I.click(menuSideBarElement.buttons.home);
+    },
     createClient: ({
       I,
       signInPage,
