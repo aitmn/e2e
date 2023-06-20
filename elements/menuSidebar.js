@@ -4,7 +4,7 @@ module.exports = {
   buttons: {
     createOrder:
       ".ScrollbarsCustom > div > div > span > .MuiBox-root > button",
-    home: ".MuiBox-root > div > div > div > div > span > .MuiBox-root > div > ul > a:nth-child(1) > button"
+    home: "a[title = 'Главная'] > button"
   },
   clickOnCreateOrderButton() {
     I.click(this.buttons.createOrder);
