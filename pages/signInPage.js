@@ -9,7 +9,7 @@ module.exports = {
 
   buttons: {
     signInButton: "button[type=submit]",
-    signUpButton: ".MuiBox-root [type=button]",
+    signUpButton: ".MuiBox-root[type=button]",
     passwordRecoveryButton: '[href ="/password-recovery"]',
     telegramButton: '[href="https://t.me/finleo"]',
     dzenButton: '[href="https://dzen.ru/finleo"]',
@@ -20,7 +20,7 @@ module.exports = {
     I.fillField(this.fields.email, email);
     I.fillField(this.fields.password, password);
     I.click(this.buttons.signInButton);
-    I.wait(2);
+    I.wait(3);
   },
 
   goToSignUpPage() {

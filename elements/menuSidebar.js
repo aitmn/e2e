@@ -2,10 +2,14 @@ const { I } = inject();
 
 module.exports = {
   buttons: {
-    createOrderButton:
-      ".App >.MuiBox-root > div > .ScrollbarsCustom > div > div > span > .MuiBox-root > button",
+    createOrder:
+      ".ScrollbarsCustom > div > div > span > .MuiBox-root > button",
+    home: "a[title = 'Главная'] > button"
   },
   clickOnCreateOrderButton() {
-    I.click(this.buttons.createOrderButton);
+    I.click(this.buttons.createOrder);
   },
+  clickOnHomeButton(){
+    I.click(this.buttons.home)
+  }
 };
