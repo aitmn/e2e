@@ -26,5 +26,4 @@ module.exports = {
         I.click(this.checkboxes.OSN)
         I.click(this.buttons.submit)
       }
-
     }
