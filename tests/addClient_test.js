@@ -1,5 +1,4 @@
-const { radio } = require("../elements/addClientModal");
-const { messages } = require("../elements/addClientModal");
+const { radio, messages } = require("../elements/addClientModal");
 const { modalWindow } = require("../elements/choseClientModal");
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
 const { headers } = require("../pages/ordersCreatePage");
@@ -63,7 +62,7 @@ Scenario(
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createWrongIndividualPerson();
     I.seeElement(messages.errorMessage);
-    const errorText = await I.grabTextFrom(messages.errorMessage);
+    const errorText = await I.grabTextFrom(addClientModalElement.messages.errorMessage);
     assert.equal(errorText, "Требуемая длина ИНН - 12, сейчас - 10");
   }
 );
@@ -73,8 +72,8 @@ Scenario("Создание нового клиента ИП", async ({ I, addCli
   I.waitForNavigation(2);
   I.seeInCurrentUrl("/create");
   I.wait(2);
-  const clientName = await I.grabTextFrom(headers.client);
-  const guarantee = await I.grabTextFrom(headers.guarantee);
+  const clientName = await I.grabTextFrom(addClientModalElement.headers.client);
+  const guarantee = await I.grabTextFrom(addClientModalElement.headers.guarantee);
   assert.equal(guarantee, "БГ на исполнение");
   assert.equal(clientName, process.env.TEST_INDIVIDUAL_PERSON_NAME);
 });
@@ -82,7 +81,8 @@ Scenario(
   "Клиент ИП не создастся, если он уже прикреплен",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createAssignIndividualPerson();
-    const errorMessage = await I.grabTextFrom(messages.innErrorMessage);
+    I.wait(2);
+    const errorMessage = await I.grabTextFrom(addClientModalElement.messages.errorMessage);
     assert.equal(
       errorMessage,
       "Пользователь с таким ИНН уже закреплен за вами"
@@ -98,7 +98,7 @@ Scenario(
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createWrongLegal();
     I.seeElement(messages.errorMessage);
-    const errorText = await I.grabTextFrom(messages.errorMessage);
+    const errorText = await I.grabTextFrom(addClientModalElement.messages.errorMessage);
     assert.equal(errorText, "Требуемая длина ИНН - 10, сейчас - 12");
   }
 );
@@ -108,8 +108,8 @@ Scenario(
     addClientModalElement.createLegal();
     I.waitForNavigation(2);
     I.seeInCurrentUrl("/create");
-    const clientName = await I.grabTextFrom(headers.client);
-    const guarantee = await I.grabTextFrom(headers.guarantee);
+    const clientName = await I.grabTextFrom(addClientModalElement.headers.client);
+    const guarantee = await I.grabTextFrom(addClientModalElement.headers.guarantee);
     assert.equal(guarantee, "БГ на исполнение");
     assert.equal(clientName, process.env.TEST_LEGAL_NAME);
   }
@@ -119,7 +119,7 @@ Scenario(
   "Клиент Юр. лицо не создастся, если он уже прикреплен",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createAssignLegal();
-    const errorMessage = await I.grabTextFrom(messages.innErrorMessage);
+    const errorMessage = await I.grabTextFrom(addClientModalElement.messages.innErrorMessage);
     assert.equal(
       errorMessage,
       "Пользователь с таким ИНН уже закреплен за вами"

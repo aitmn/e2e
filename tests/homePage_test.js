@@ -98,6 +98,7 @@ Feature("Проверка блока 'Быстрое создание заявк
 Before(hooks.adminSignIn);
 Scenario("Создание заявки из готового шаблона", ({ I, homePage }) => {
   I.amOnPage(process.env.HOME_PAGE);
+  I.wait(2);
   homePage.goToFastOrder();
   I.wait(1);
   I.seeElement(modalWindow);

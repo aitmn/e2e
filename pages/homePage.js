@@ -115,6 +115,7 @@ module.exports = {
   },
   goToFastOrder() {
     I.click(this.slidersElements.fastOrders.firstElement);
+    I.wait(2);
   },
   goToLastOrder() {
     I.click(this.slidersElements.lastOrders.firstElement);
