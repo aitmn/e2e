@@ -18,15 +18,10 @@
   },
   "homepage": "https://gitlab.com/finleo/crm-e2e#readme",
   "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "@faker-js/faker": "^8.0.2",
     "codeceptjs": "^3.4.1",
     "dotenv": "^16.0.3",
     "mocha": "^10.2.0",
-    "playwright": "1.18"
-  },
-  "dependencies": {
-    "@codeceptjs/ui": "^0.5.0",
-    "codeceptjs-chai": "^2.3.4",
-    "mysql2": "^3.4.0"
+    "playwright": "^1.35.1"
   }
 }

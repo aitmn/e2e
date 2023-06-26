@@ -1,6 +1,13 @@
-FROM node:18.14-alpine
-WORKDIR C:\Users\ivanov\projects\crm-e2e
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
 COPY . .
-RUN npm i
-EXPOSE 3000
-CMD ["npx", "codeceptjs", "run", "tests"]
+
+RUN npm install codeceptjs playwright --save
+
+CMD ["codeceptjs", "run"]

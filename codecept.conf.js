@@ -5,15 +5,8 @@ dotenv.config();
 exports.config = {
   tests: "./tests/*",
   output: "./output",
-  plugins: {
-    chai: {
-      require: "codeceptjs-chai",
-    },
-  },
+  plugins: {},
   helpers: {
-    ChaiWrapper: {
-      require: "codeceptjs-chai",
-    },
     Playwright: {
       url: process.env.BASE_URL,
       show: true,

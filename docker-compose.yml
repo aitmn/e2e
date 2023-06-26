@@ -1,7 +1,7 @@
-version: '3'
-
+version: '2'
 services:
-  app:
-    build: .
-    ports:
-      - "3000:3000"
+  codeceptjs:
+    image: codeceptjs/codeceptjs
+    volumes:
+      - .:/tests
+
