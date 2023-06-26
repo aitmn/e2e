@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM codeceptjs/codeceptjs
 
 WORKDIR /app
 
@@ -6,8 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN npx playwright install
+
 COPY . .
 
-RUN npm install codeceptjs playwright --save
-
-CMD ["codeceptjs", "run"]
+CMD ["npx", "codeceptjs", "run"]
