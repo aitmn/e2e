@@ -106,7 +106,7 @@ Scenario("Создание заявки из готового шаблона", (
 
 Scenario("Создать новый шаблон", async ({ I, homePage }) => {
   I.amOnPage(process.env.HOME_PAGE);
-  I.wait(2);
+  I.wait(3);
   homePage.addNewFastOrder();
   I.seeElement(".//span[ancestor::p[contains(., 'БГ на участие')]]");
 });

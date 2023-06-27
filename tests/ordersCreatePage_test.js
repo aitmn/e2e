@@ -19,8 +19,7 @@ Scenario(
 );
 
 Scenario(
-  "Создание заявки на БГ",
-  async ({
+  "Создание заявки на БГ", async ({
     I,
     ordersCreatePage,
     ordersPartnersPage,
@@ -44,7 +43,7 @@ Scenario(
     I.wait(4);
     I.seeElement(".MuiAlert-message > p > div > p");
   },
-
+);
   Scenario(
     "Заявка не создастся, если по номеру извещения уже создана заявка",
     async ({ I, ordersCreatePage }) => {
@@ -55,6 +54,6 @@ Scenario(
       const errorMessage = await I.grabTextFrom(messages.noticeNumberError);
       assert.equal(errorMessage, "По данной закупке уже создана заявка");
     }
-  )
-  //После сценария необходимо удалить созданный order
 );
+  //После сценария необходимо удалить созданный order
+
