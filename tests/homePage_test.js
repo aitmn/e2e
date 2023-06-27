@@ -100,7 +100,7 @@ Scenario("Создание заявки из готового шаблона", (
   I.amOnPage(process.env.HOME_PAGE);
   I.wait(2);
   homePage.goToFastOrder();
-  I.wait(1);
+  I.wait(2);
   I.seeElement(modalWindow);
 });
 

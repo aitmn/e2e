@@ -61,6 +61,7 @@ module.exports = {
     I.click(this.radio.legal);
     I.fillField(this.fields.inn, process.env.TEST_LEGAL_INN);
     I.click(this.buttons.submit);
+    I.wait(1);
   },
 
   createWrongLegal() {

@@ -121,15 +121,15 @@ module.exports = {
     I.wait(1);
   },
   async seePhoneError(){
-    const message = I.grabTextFrom(this.elements.errorMessages.phoneError)
+    const message = await I.grabTextFrom(this.elements.errorMessages.phoneError)
     assert.equal(message, 'Пользователь с таким номером телефона уже зарегистрирован')
   },
   async seeEmailError(){
-    const message = I.grabTextFrom(this.elements.errorMessages.emailError)
+    const message = await I.grabTextFrom(this.elements.errorMessages.emailError)
     assert.equal(message, 'Пользователь с таким email существует')
   },
   async seeInnError(){
-    const message = I.grabTextFrom(this.elements.errorMessages.innError)
+    const message = await I.grabTextFrom(this.elements.errorMessages.innError)
     assert.equal(message, 'ИНН занят, обратитесь в поддержку')
   },
   fillPassword() {
