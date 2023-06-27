@@ -68,7 +68,7 @@ Scenario("Переход к форме восстановления пароля
   I.seeInCurrentUrl("/password-recovery");
 });
 
-Scenario.only("Переход к форме регистрации", ({ I, signInPage }) => {
+Scenario("Переход к форме регистрации", ({ I, signInPage }) => {
   signInPage.goToSignUpPage();
   I.seeInCurrentUrl("/signup");
 });
