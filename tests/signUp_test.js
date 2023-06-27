@@ -50,7 +50,7 @@ Scenario(
     I.seeInCurrentUrl("/signup");
   }
 );
-  Scenario.only(
+  Scenario(
     "Ошибка если введенный ИНН уже используется",
     ({ I, signInPage, signUpPage }) => {
       signInPage.goToSignUpPage();
