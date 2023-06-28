@@ -106,7 +106,7 @@ Scenario(
   "Создание нового клиента Юр. лицо",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createLegal();
-    I.waitForNavigation(2);
+    I.wait(2);
     I.seeInCurrentUrl("/create");
     const clientName = await I.grabTextFrom(addClientModalElement.headers.client);
     const guarantee = await I.grabTextFrom(addClientModalElement.headers.guarantee);
