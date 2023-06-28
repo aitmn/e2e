@@ -1,5 +1,3 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const { faker } = require("@faker-js/faker");
 const { hooks } = require("../helpers/hooks");
 Feature("Успешная аторизация, с переходом на стратовую страницу");

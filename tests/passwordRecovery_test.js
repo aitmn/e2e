@@ -1,6 +1,4 @@
 const assert = require("assert");
-const dotenv = require("dotenv");
-dotenv.config();
 const { faker } = require("@faker-js/faker");
 const { errorMessage } = require("../pages/passwordRecoveryPage");
 const { hooks } = require("../helpers/hooks");

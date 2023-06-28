@@ -1,5 +1,3 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
 const { modalWindow } = require("../elements/choseClientModal");
 const { elements } = require("../elements/choseClientModal");

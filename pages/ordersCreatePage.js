@@ -1,7 +1,6 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const { I } = inject();
 const assert = require("assert");
+
 module.exports = {
   headers: {
     guaranteeType: " .MuiBox-root:nth-child(3) > h3",

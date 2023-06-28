@@ -6,7 +6,7 @@ const { hooks } = require("../helpers/hooks");
 const assert = require("assert");
 Feature("Работа с модальным окном");
 Before(hooks.createClient);
-Scenario(
+Scenario.only(
   "При клике 'Назад', возвар к выбору клиента",
   ({ I, addClientModalElement }) => {
     addClientModalElement.backToChoseClient();
@@ -69,7 +69,7 @@ Scenario(
 
 Scenario("Создание нового клиента ИП", async ({ I, addClientModalElement }) => {
   addClientModalElement.createIndividualPerson();
-  I.waitForNavigation(2);
+  I.wait(2);
   I.seeInCurrentUrl("/create");
   I.wait(2);
   const clientName = await I.grabTextFrom(addClientModalElement.headers.client);

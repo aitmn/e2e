@@ -1,7 +1,6 @@
 const { I } = inject();
-const dotenv = require("dotenv");
-dotenv.config();
 const assert = require("assert");
+
 module.exports = {
   elements: {
     selects: {

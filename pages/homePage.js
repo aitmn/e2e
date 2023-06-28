@@ -1,7 +1,6 @@
 const { I } = inject();
-const { modalWindow } = require("../elements/addClientModal");
-const { offersSideBarElement } = require("../elements/offersSideBar");
 const assert = require("assert");
+
 module.exports = {
   filter: {
     modalWindow: ".MuiDialog-container.MuiDialog-scrollPaper > div > div",

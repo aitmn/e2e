@@ -1,5 +1,6 @@
 const { I } = inject();
 const { faker } = require("@faker-js/faker");
+
 module.exports = {
   modalWindow: ".MuiDialog-paper > div",
   fields: {

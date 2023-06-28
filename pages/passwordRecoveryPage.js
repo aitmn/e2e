@@ -1,4 +1,5 @@
 const { I } = inject();
+
 module.exports = {
   //элементы страницы
   emailField: "input[name=email]",

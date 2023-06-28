@@ -1,9 +1,6 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const assert = require("assert");
 const { hooks } = require("../helpers/hooks");
 const { messages } = require("../pages/ordersCreatePage");
-
 Feature("Создание заявки");
 Before(hooks.ClientCreateDraft);
 

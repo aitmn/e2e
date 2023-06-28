@@ -2,8 +2,6 @@ const { hooks } = require("../helpers/hooks");
 const { slidersElements } = require("../pages/homePage");
 const { modalWindow } = require("../elements/addClientModal");
 const assert = require("assert");
-const dotenv = require("dotenv");
-dotenv.config();
 Feature("Проверка блока 'Работа по заявкам'");
 
 Before(hooks.adminSignIn);

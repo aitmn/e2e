@@ -1,9 +1,6 @@
 const { hooks } = require("../helpers/hooks");
 const { credentials } = require("../pages/signUpPage");
 const { elements } = require("../pages/signUpPage");
-const dotenv = require("dotenv");
-dotenv.config();
-
 Feature("Регистрация нового пользователя");
 Before(hooks.basePage);
 Scenario(
