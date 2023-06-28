@@ -6,7 +6,7 @@ const { hooks } = require("../helpers/hooks");
 const assert = require("assert");
 Feature("Работа с модальным окном");
 Before(hooks.createClient);
-Scenario.only(
+Scenario(
   "При клике 'Назад', возвар к выбору клиента",
   ({ I, addClientModalElement }) => {
     addClientModalElement.backToChoseClient();
