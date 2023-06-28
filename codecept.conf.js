@@ -3,20 +3,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.config = {
-  tests: "./tests/*",
+  tests: "./tests/*_test.js",
   output: "./output",
   plugins: {},
   helpers: {
     Playwright: {
       url: process.env.BASE_URL,
       show: true,
-      browser: "chromium",
-      desiredCapabilities: {
-        chromeOptions: {
-          args: ['--no-sandbox', '--disable-dev-shm-usage']
-        }
-      }
-    },
+      browser: "chromium"
+      },
   },
   include: {
     signInPage: "./pages/signInPage.js",
