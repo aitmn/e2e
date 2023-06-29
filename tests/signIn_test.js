@@ -1,5 +1,6 @@
 const { faker } = require("@faker-js/faker");
 const { hooks } = require("../helpers/hooks");
+const passwordRecoveryPage = require("../pages/passwordRecoveryPage");
 Feature("Успешная аторизация, с переходом на стратовую страницу");
 
 Before(hooks.basePage);
@@ -27,7 +28,6 @@ Scenario("Успешная авторизация партнером", ({ I, sig
 Feature("Авторизация с некорректными данными");
 
 Before(hooks.basePage);
-
 Scenario(
   'Попытка авторизации с незаполенными полями "Логин", "Пароль"',
   ({ I, signInPage }) => {
@@ -60,25 +60,21 @@ Scenario("Попытка авторизации с невалидными дан
 Feature("Переход на другие формы");
 
 Before(hooks.basePage);
-
-Scenario("Переход к форме восстановления пароля", ({ I, signInPage }) => {
-  signInPage.goToPasswordRecoveryPage();
-  I.seeInCurrentUrl("/password-recovery");
-});
-
-Scenario("Переход к форме регистрации", ({ I, signInPage }) => {
-  signInPage.goToSignUpPage();
-  I.seeInCurrentUrl("/signup");
-});
-
-Scenario("Переход в телеграм канал", ({ I, signInPage }) => {
-  signInPage.goToTelegram();
-  I.switchToNextTab();
-  I.seeInCurrentUrl(process.env.TELEGRAM_URL);
-});
-
-Scenario("Переход на канал в Дзене", ({ I, signInPage }) => {
-  signInPage.goToDzen();
-  I.switchToNextTab();
-  I.seeInCurrentUrl(process.env.DZEN_URL);
-});
+Scenario(
+  "Переход на восстановление пароля/регистрацию/соцсети",
+  ({ I, signInPage }) => {
+    signInPage.goToPasswordRecoveryPage();
+    I.seeInCurrentUrl("/password-recovery");
+    passwordRecoveryPage.clickBackButton();
+    signInPage.goToSignUpPage();
+    I.seeInCurrentUrl("/signup");
+    passwordRecoveryPage.clickBackButton();
+    signInPage.goToTelegram();
+    I.switchToNextTab();
+    I.seeInCurrentUrl(process.env.TELEGRAM_URL);
+    I.closeCurrentTab();
+    signInPage.goToDzen();
+    I.switchToNextTab();
+    I.seeInCurrentUrl(process.env.DZEN_URL);
+  }
+);

@@ -28,16 +28,16 @@ Scenario(
     signUpPage.choseAgent();
     I.fillField(elements.fields.inn, process.env.AGENT_INN);
     signUpPage.clickSubmitButton();
-    I.wait(1)
+    I.wait(1);
     signUpPage.seeInnError();
     I.fillField(elements.fields.phone, credentials.RussiaIndividual.phone);
     signUpPage.clickSubmitButton();
-    I.wait(1)
+    I.wait(1);
     I.seeElement(elements.errorMessages.phoneError);
     signUpPage.seePhoneError();
     I.fillField(elements.fields.email, process.env.ADMIN_EMAIL);
     signUpPage.clickSubmitButton();
-    I.wait(1)
+    I.wait(1);
     I.seeElement(elements.errorMessages.emailError);
     signUpPage.seeEmailError();
     signUpPage.clickSubmitButton();
