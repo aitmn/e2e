@@ -33,7 +33,7 @@ module.exports = {
     },
     errorMessages: {
       phoneError: "form > div > .MuiBox-root > div > p",
-      emailError: "form > .MuiBox-root:nth-child(4) > div > p",
+      emailError: "form > .MuiBox-root:nth-child(5) > div > p",
       innError: "form > .MuiBox-root:nth-child(3) > div > p"
     },
     listElements: {
