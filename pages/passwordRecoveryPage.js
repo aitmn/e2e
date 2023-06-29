@@ -22,4 +22,8 @@ module.exports = {
     I.fillField(this.emailField, email);
     I.seeElement("#submit-reg-form[disabled]");
   },
+  clearField(){
+    I.doubleClick(this.emailField)
+    I.pressKey('Backspace')
+  }
 };

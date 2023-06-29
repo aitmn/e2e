@@ -27,7 +27,7 @@ Scenario("Успешная авторизация партнером", ({ I, sig
 Feature("Авторизация с некорректными данными");
 
 Before(hooks.basePage);
-Scenario.only(
+Scenario(
   'Попытка авторизации с незаполенными полями',
   ({ I, signInPage }) => {
     signInPage.signIn("", ""); // не заполняем оба поля
