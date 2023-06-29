@@ -5,25 +5,15 @@ Feature("Создание заявки");
 Before(hooks.ClientCreateDraft);
 
 Scenario(
-  "Если не заполнить обязательные поля, заявка не создается, появляется подсказка",
-  async ({ I, ordersCreatePage }) => {
-    ordersCreatePage.clickSubmit();
-    I.wait(2);
+  "Создание заявки на БГ",
+  async ({ I, ordersCreatePage, ordersPartnersPage,
+    ordersDocumentsPage,
+    choseTaxPage, }) => {
+    ordersCreatePage.clickSubmit(); // Попытка создать заявку не заполняя обязательные поля
     I.seeInCurrentUrl("/orders/create");
     const numOfElements = await I.grabNumberOfVisibleElements(messages.errors);
     assert.equal(numOfElements, 10);
-  }
-);
-
-Scenario(
-  "Создание заявки на БГ", async ({
-    I,
-    ordersCreatePage,
-    ordersPartnersPage,
-    ordersDocumentsPage,
-    choseTaxPage,
-  }) => {
-    ordersCreatePage.fillInformationStep();
+    ordersCreatePage.fillInformationStep(); // Успешное создание заявки
     I.wait(4);
     I.see("Выберите партнеров");
     ordersPartnersPage.isSubmitDisabled();
@@ -39,8 +29,9 @@ Scenario(
     ordersDocumentsPage.clickSubmit();
     I.wait(4);
     I.seeElement(".MuiAlert-message > p > div > p");
-  },
+  }
 );
+
   Scenario(
     "Заявка не создастся, если по номеру извещения уже создана заявка",
     async ({ I, ordersCreatePage }) => {

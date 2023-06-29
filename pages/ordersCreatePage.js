@@ -139,7 +139,6 @@ module.exports = {
   },
   async fillAdvanceRub() {
     I.fillField(this.fields.advanceRub, process.env.BG_ADVANCE_RUB);
-    I.wait(1);
     const advancePercent = await I.grabValueFrom(this.fields.advancePercent);
     assert.equal(advancePercent, process.env.BG_ADVANCE_PERCENT);
   },
@@ -202,7 +201,6 @@ module.exports = {
     this.fillGuaranteeTo();
     this.clickAdvance();
     this.fillAdvanceRub();
-    this.clickUndisputedOff();
     this.fillComment();
     this.clickSubmit();
   },
