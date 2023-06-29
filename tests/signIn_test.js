@@ -4,7 +4,6 @@ const passwordRecoveryPage = require("../pages/passwordRecoveryPage");
 Feature("Успешная аторизация, с переходом на стратовую страницу");
 
 Before(hooks.basePage);
-
 Scenario("Успешная авторизация клиентом", ({ I, signInPage }) => {
   signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD);
   I.seeInCurrentUrl("/home");
@@ -43,10 +42,6 @@ Scenario.only(
     I.seeInCurrentUrl(process.env.BASE_URL);
   }
 );
-
-Scenario("Попытка авторизации с невалидными данными", ({ I, signInPage }) => {
-
-});
 
 Feature("Проверка переходов на другие страницы");
 
