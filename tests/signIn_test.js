@@ -57,23 +57,23 @@ Scenario("Попытка авторизации с невалидными дан
   I.seeInCurrentUrl(process.env.BASE_URL);
 });
 
-Feature("Переход на другие формы");
+Feature("Проверка переходов на другие страницы");
 
 Before(hooks.basePage);
 Scenario(
-  "Переход на восстановление пароля/регистрацию/соцсети",
+  "Переход на другие формы",
   ({ I, signInPage }) => {
-    signInPage.goToPasswordRecoveryPage();
+    signInPage.goToPasswordRecoveryPage(); // переход на страницу восстановления пароля
     I.seeInCurrentUrl("/password-recovery");
     passwordRecoveryPage.clickBackButton();
-    signInPage.goToSignUpPage();
+    signInPage.goToSignUpPage(); // переход на страницу регистрации
     I.seeInCurrentUrl("/signup");
     passwordRecoveryPage.clickBackButton();
-    signInPage.goToTelegram();
+    signInPage.goToTelegram(); // переход в телеграм канал
     I.switchToNextTab();
     I.seeInCurrentUrl(process.env.TELEGRAM_URL);
     I.closeCurrentTab();
-    signInPage.goToDzen();
+    signInPage.goToDzen(); // переход на страницу в Яндекс.Дзен
     I.switchToNextTab();
     I.seeInCurrentUrl(process.env.DZEN_URL);
   }
