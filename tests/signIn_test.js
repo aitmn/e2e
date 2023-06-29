@@ -28,33 +28,24 @@ Scenario("Успешная авторизация партнером", ({ I, sig
 Feature("Авторизация с некорректными данными");
 
 Before(hooks.basePage);
-Scenario(
-  'Попытка авторизации с незаполенными полями "Логин", "Пароль"',
+Scenario.only(
+  'Попытка авторизации с незаполенными полями',
   ({ I, signInPage }) => {
-    signInPage.signIn("", "");
+    signInPage.signIn("", ""); // не заполняем оба поля
     I.seeInCurrentUrl(process.env.BASE_URL);
-  }
-);
-
-Scenario(
-  'Попытка авторизации с незаполенным полем "Логин"',
-  ({ I, signInPage }) => {
-    signInPage.signIn("", process.env.BASE_PASSWORD);
+    signInPage.signIn("", process.env.BASE_PASSWORD); // не заполняем поле логин
     I.seeInCurrentUrl(process.env.BASE_URL);
-  }
-);
-
-Scenario(
-  'Попытка авторизации с незаполенным полем "Пароль"',
-  ({ I, signInPage }) => {
-    signInPage.signIn(process.env.ADMIN_EMAIL, "");
+    signInPage.clearPasswordField()
+    signInPage.signIn(process.env.ADMIN_EMAIL, ""); // не заполняем поле пароль
+    I.seeInCurrentUrl(process.env.BASE_URL);
+    signInPage.clearEmailField()
+    signInPage.signIn(faker.internet.email(10), faker.internet.password(5)); // логинимся с несуществующими данными
     I.seeInCurrentUrl(process.env.BASE_URL);
   }
 );
 
 Scenario("Попытка авторизации с невалидными данными", ({ I, signInPage }) => {
-  signInPage.signIn(faker.internet.email(10), faker.internet.password(5));
-  I.seeInCurrentUrl(process.env.BASE_URL);
+
 });
 
 Feature("Проверка переходов на другие страницы");

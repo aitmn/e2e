@@ -20,9 +20,16 @@ module.exports = {
     I.fillField(this.fields.email, email);
     I.fillField(this.fields.password, password);
     I.click(this.buttons.signInButton);
-    I.wait(3);
+    I.wait(2);
   },
-
+  clearEmailField(){
+    I.doubleClick(this.fields.email)
+    I.pressKey('Backspace')
+  },
+  clearPasswordField(){
+    I.doubleClick(this.fields.password)
+    I.pressKey('Backspace') 
+  },
   goToSignUpPage() {
     I.click(this.buttons.signUpButton);
     I.wait(2);
