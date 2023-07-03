@@ -78,4 +78,8 @@ module.exports = {
   closeAddClient() {
     I.click(this.buttons.close);
   },
+  clearInnField(){
+    I.doubleClick(this.fields.inn)
+    I.pressKey('Backspace')
+  },
 };

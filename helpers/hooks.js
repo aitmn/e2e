@@ -3,8 +3,11 @@ module.exports = {
     basePage: ({ I }) => {
       I.amOnPage(process.env.BASE_URL);
     },
-    signUpPage: ( { signInPage } ) =>{
+    signUpPage: ({ signInPage }) =>{
       signInPage.goToSignUpPage()
+    },
+    homePage: ({ I }) =>{
+      I.amOnPage(process.env.HOME_PAGE)
     },
     agentSignIn: ({ I, signInPage }) => {
       I.amOnPage(process.env.BASE_URL);

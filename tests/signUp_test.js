@@ -1,7 +1,9 @@
 const { hooks } = require("../helpers/hooks");
 const { credentials } = require("../pages/signUpPage");
 const { elements } = require("../pages/signUpPage");
+
 Feature("Регистрация нового пользователя");
+
 Before(hooks.basePage);
 Scenario(
   "Юридическое лицо, резидент Молдовы, агент",

@@ -1,6 +1,7 @@
 const { faker } = require("@faker-js/faker");
 const { hooks } = require("../helpers/hooks");
 const passwordRecoveryPage = require("../pages/passwordRecoveryPage");
+
 Feature("Успешная аторизация, с переходом на стратовую страницу");
 
 Before(hooks.basePage);

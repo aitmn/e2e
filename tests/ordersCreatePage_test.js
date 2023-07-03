@@ -1,9 +1,10 @@
 const assert = require("assert");
 const { hooks } = require("../helpers/hooks");
 const { messages } = require("../pages/ordersCreatePage");
-Feature("Создание заявки");
-Before(hooks.ClientCreateDraft);
 
+Feature("Создание заявки");
+
+Before(hooks.ClientCreateDraft);
 Scenario(
   "Создание заявки на БГ",
   async ({ I, ordersCreatePage, ordersPartnersPage,
