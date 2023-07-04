@@ -51,7 +51,7 @@ Feature("Создание Клиента");
 
 Before(hooks.createClient);
 Scenario(
-  "ИП не создастся, если ИНН не равен 12 символам",
+  "Создание клиента ИП",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createWrongIndividualPerson(); //ИП не создастся, если ИНН не равен 12 символам
     I.seeElement(messages.errorMessage);
@@ -81,7 +81,7 @@ Scenario(
 Из таблице Profiles и Users
 */
 Scenario(
-  "Юр. лицо не создастся, если ИНН не равен 10 символам",
+  "Создание Юр. лица",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createWrongLegal(); // Юр. лицо не создастся, если ИНН не равен 10 символам
     I.seeElement(messages.errorMessage);
