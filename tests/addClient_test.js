@@ -98,7 +98,7 @@ Scenario(
   "Клиент Юр. лицо не создастся, если он уже прикреплен",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createAssignLegal();
-    const errorMessage = await I.grabTextFrom(messages.innErrorMessage);
+    const errorMessage = await I.grabTextFrom(messages.errorMessage);
     assert.equal(
       errorMessage,
       "Пользователь с таким ИНН уже закреплен за вами"

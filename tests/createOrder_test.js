@@ -8,7 +8,7 @@ Feature("Сайдбар выбора продуктов");
 Before(hooks.agentSignIn);
 Scenario(
   "По клику на кнопку, открывается сайдбар, можно выбрать продукт",
-  ({ I, appBarElement }) => {
+  ({ I, appBarElement, menuSideBarElement, GuaranteesSideBarElement }) => {
     appBarElement.clickOnCreateOrderButton();
     I.seeElement(guaranteeTypeSideBar);
     I.pressKey("Escape");

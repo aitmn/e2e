@@ -1,4 +1,6 @@
 
 module.exports = {
-  offersSideBar: ".MuiDrawer-modal > .MuiDrawer-paperAnchorRight",
+  offersSideBar: "#offer-drawer",
+  buttons: {
+  }
 };

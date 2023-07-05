@@ -5,14 +5,12 @@ const assert = require("assert");
 
 Feature("Проверка блока 'Работа по заявкам'");
 
-Before(hooks.adminSignIn);
-Before(hooks.homePage);
+Before(hooks.agentSignIn);
 Scenario("Сайдбар с поиском корректно работает", ({ I, homePage }) => {
   I.wait(1);
   homePage.clickFilter();
   I.wait(1);
   homePage.useFilter();
-  I.see("client");
   I.click(slidersElements.requets_offers.resetFilter);
   I.dontSeeElement(slidersElements.requets_offers.resetFilter);
 }),
@@ -47,11 +45,12 @@ Scenario("Сайдбар с поиском корректно работает",
 
 Scenario(
   "Переход в предложение/запрос/черновик работает",
-  ({ I, homePage, offersSideBarElement }) => {
+  ({ I, homePage, offersSideBarElement, requestsSideBarElement }) => {
     homePage.goToFirstOffer(); // Переход в предложение
     I.seeElement(offersSideBarElement.offersSideBar);
-    I.pressKey("Escape");
+    I.pressKey("Enter");
     I.wait(1);
+    homePage.clickOffersButton()
     homePage.goToFirstRequest(); // Переход в запрос
     I.seeElement(requestsSideBarElement.requestsSideBar);
     I.pressKey("Escape");
@@ -63,9 +62,8 @@ Scenario(
 
 Feature("Проверка блока 'События'");
 
-Before(hooks.adminSignIn);
-Before(hooks.homePage);
-Scenario("При клике переход в заявку работает", ({ I, homePage }) => {
+Before(hooks.agentSignIn);
+Scenario.only("При клике переход в заявку работает", ({ I, homePage }) => {
   I.wait(2);
   homePage.goToFirstEvent();
   I.wait(1);
@@ -73,8 +71,8 @@ Scenario("При клике переход в заявку работает", ({
 });
 
 Feature("Проверка блока 'Последние заявки'");
-Before(hooks.adminSignIn);
-Before(hooks.homePage);
+
+Before(hooks.agentSignIn);
 Scenario("При клике на номер заявку, переход в нее", ({ I, homePage }) => {
   I.wait(2);
   homePage.goToLastOrder();

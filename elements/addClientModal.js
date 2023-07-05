@@ -31,7 +31,7 @@ module.exports = {
     I.fillField(this.fields.inn, process.env.TEST_INDIVIDUAL_PERSON_INN);
     I.click(this.buttons.submit);
     I.seeInField(this.fields.name, process.env.TEST_INDIVIDUAL_PERSON_NAME);
-    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER);
+    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER_INDIVIDUAL_PERSON);
     I.fillField(this.fields.email, faker.internet.email());
     I.click(this.buttons.sendEmail);
     I.click(this.buttons.submit);
@@ -52,7 +52,7 @@ module.exports = {
     I.fillField(this.fields.inn, process.env.TEST_LEGAL_INN);
     I.click(this.buttons.submit);
     I.seeInField(this.fields.name, process.env.TEST_LEGAL_NAME);
-    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER);
+    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER_LEGAL);
     I.fillField(this.fields.email, faker.internet.email());
     I.click(this.buttons.sendEmail);
     I.click(this.buttons.submit);

@@ -61,9 +61,15 @@ module.exports = {
   clickFilter() {
     I.click(this.slidersElements.requets_offers.filter);
   },
+  clickOffersButton(){
+    I.click(this.slidersElements.requets_offers.offersButton)
+  },
+  clickRequestsButton(){
+    I.click(this.slidersElements.requets_offers.requestsButton)
+  },
   useFilter() {
     I.click(this.filter.searchField);
-    I.fillField(this.filter.searchField, "client");
+    I.fillField(this.filter.searchField, "7072name");
     I.wait(1);
     I.click(this.filter.firstItem);
     I.click(this.filter.submitButton);
@@ -89,6 +95,7 @@ module.exports = {
   },
   goToDrafts() {
     I.click(".MuiPaper-root:nth-child(7) > div > div > div:nth-child(2) > button:nth-child(2)")
+    I.wait(1)
     I.see('Черновики')
     I.click(".MuiBox-root > div > div > div > span > div > div:nth-child(1) > div:nth-child(1) > button ")
   },
