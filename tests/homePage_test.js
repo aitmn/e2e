@@ -1,13 +1,14 @@
 const { hooks } = require("../helpers/hooks");
 const { slidersElements } = require("../pages/homePage");
 const { modalWindow } = require("../elements/addClientModal");
+const { fields } = require('../pages/newsPage')
 const assert = require("assert");
 
 Feature("Проверка блока 'Работа по заявкам'");
 
 Before(hooks.agentSignIn);
 Scenario("Сайдбар с поиском корректно работает", ({ I, homePage }) => {
-  I.wait(1);
+  I.wait(3);
   homePage.clickFilter();
   I.wait(1);
   homePage.useFilter();
@@ -16,7 +17,7 @@ Scenario("Сайдбар с поиском корректно работает",
 }),
 
   Scenario("Кнопки сортировки работают", async ({ I, homePage }) => {
-    I.wait(1);
+    I.wait(3);
     homePage.clickOffersButton();
     const offersIsActive = await I.grabAttributeFrom(
       slidersElements.requets_offers.offersButton,
@@ -74,21 +75,16 @@ Feature("Проверка блока 'Последние заявки'");
 
 Before(hooks.agentSignIn);
 Scenario("При клике на номер заявки, переход в нее", ({ I, homePage }) => {
-  I.wait(2);
-  homePage.goToLastOrder();
+  I.wait(3);
+  homePage.goToLastOrder(); // Переход по конкретной заявке
+  I.wait(1);
+  I.seeInCurrentUrl("/orders");
+  I.amOnPage(process.env.HOME_PAGE)
+  I.wait(3)
+  homePage.goToAllOrders(); // Переход во все заявки
   I.wait(1);
   I.seeInCurrentUrl("/orders");
 });
-
-Scenario(
-  "По кнопке 'Все заявки' переход на страницу /orders",
-  ({ I, homePage }) => {
-    I.wait(2);
-    homePage.goToAllOrders();
-    I.wait(1);
-    I.seeInCurrentUrl("/orders");
-  }
-);
 
 Feature("Проверка блока 'Быстрое создание заявки'");
 
@@ -98,11 +94,33 @@ Scenario("Работа с шаблонами", ({ I, homePage }) => {
   homePage.goToFastOrder(); // Создание заявки из готового шаблона
   I.wait(2);
   I.seeElement(modalWindow);
-  I.amOnPage("/home")
-  I.wait(2)
+  I.amOnPage(process.env.HOME_PAGE);
+  I.wait(2);
   homePage.addNewFastOrder(); // Создание нового шаблона
   I.seeElement(".//span[ancestor::p[contains(., 'БГ на участие')]]");
   homePage.deleteFastOrder(); // Удаление шаблона
   I.wait(1);
-  I.dontSeeElement(".//span[ancestor::p[contains(., 'БГ на участие')]]")
+  I.dontSeeElement(".//span[ancestor::p[contains(., 'БГ на участие')]]");
 });
+
+Feature("Проверка блока Баннеры")
+
+Before(hooks.agentSignIn)
+Scenario("При клике на баннер ссылка открывается в новом окне", ({ I, homePage }) => {
+  homePage.clickOnBanner();
+  I.switchToPreviousTab(0);
+  I.seeInCurrentUrl("/home");
+});
+
+Feature("Проверка блока новости")
+
+Before(hooks.agentSignIn)
+Scenario.only("Работает переход в новость", ({ I, homePage, newsPage }) => {
+  homePage.goToNews();
+  I.switchToNextTab(1)
+  newsPage.clickBackButton();
+  I.wait(2)
+  I.seeElement(fields.search)
+  I.seeInCurrentUrl("/news")
+});
+
