@@ -1,7 +1,6 @@
 const { I } = inject();
-const dotenv = require("dotenv");
-dotenv.config();
 const assert = require("assert");
+
 module.exports = {
   elements: {
     selects: {
@@ -34,7 +33,7 @@ module.exports = {
     },
     errorMessages: {
       phoneError: "form > div > .MuiBox-root > div > p",
-      emailError: "form > .MuiBox-root:nth-child(4) > div > p",
+      emailError: "form > .MuiBox-root:nth-child(5) > div > p",
       innError: "form > .MuiBox-root:nth-child(3) > div > p"
     },
     listElements: {
@@ -121,15 +120,15 @@ module.exports = {
     I.wait(1);
   },
   async seePhoneError(){
-    const message = I.grabTextFrom(this.elements.errorMessages.phoneError)
+    const message = await I.grabTextFrom(this.elements.errorMessages.phoneError)
     assert.equal(message, 'Пользователь с таким номером телефона уже зарегистрирован')
   },
   async seeEmailError(){
-    const message = I.grabTextFrom(this.elements.errorMessages.emailError)
+    const message = await I.grabTextFrom(this.elements.errorMessages.emailError)
     assert.equal(message, 'Пользователь с таким email существует')
   },
   async seeInnError(){
-    const message = I.grabTextFrom(this.elements.errorMessages.innError)
+    const message = await I.grabTextFrom(this.elements.errorMessages.innError)
     assert.equal(message, 'ИНН занят, обратитесь в поддержку')
   },
   fillPassword() {

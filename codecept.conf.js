@@ -3,27 +3,15 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.config = {
-  tests: "./tests/*",
+  tests: "./tests/*_test.js",
   output: "./output",
-  plugins: {
-    chai: {
-      require: "codeceptjs-chai",
-    },
-  },
+  plugins: {},
   helpers: {
-    ChaiWrapper: {
-      require: "codeceptjs-chai",
-    },
     Playwright: {
       url: process.env.BASE_URL,
       show: true,
-      browser: "chromium",
-      desiredCapabilities: {
-        chromeOptions: {
-          args: ['--no-sandbox', '--disable-dev-shm-usage']
-        }
-      }
-    },
+      browser: "chromium"
+      },
   },
   include: {
     signInPage: "./pages/signInPage.js",
@@ -35,11 +23,11 @@ exports.config = {
     ordersDocumentsPage: "./pages/ordersDocumentsPage.js",
     choseTaxPage: "./pages/choseTaxPage.js",
     appBarElement: "./elements/appBar.js",
-    menuSideBarElement: "./elements/menuSideBar.js",
+    menuSideBarElement: "./elements/menuSidebar.js",
     GuaranteesSideBarElement: "./elements/guaranteesSideBar.js",
     choseClientModalElement: "./elements/choseClientModal.js",
     addClientModalElement: "./elements/addClientModal.js",
-    offersSideBarElement: "./elements/OffersSideBar.js",
+    offersSideBarElement: "./elements/offersSideBar.js",
     requestsSideBarElement: "./elements/requestsSideBar.js",
     lastChatsSideBarElement: "./elements/lastChatsSideBar.js",
   },

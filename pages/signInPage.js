@@ -1,7 +1,7 @@
 const { I } = inject();
 
 module.exports = {
-  //элементы страницы
+
   fields: {
     email: "input[name=email]",
     password: "input[name=password]",
@@ -9,20 +9,26 @@ module.exports = {
 
   buttons: {
     signInButton: "button[type=submit]",
-    signUpButton: ".MuiBox-root[type=button]",
+    signUpButton: ".//button[contains(., 'Регистрация')]",
     passwordRecoveryButton: '[href ="/password-recovery"]',
     telegramButton: '[href="https://t.me/finleo"]',
     dzenButton: '[href="https://dzen.ru/finleo"]',
   },
 
-  //описание методов
   signIn(email, password) {
     I.fillField(this.fields.email, email);
     I.fillField(this.fields.password, password);
     I.click(this.buttons.signInButton);
-    I.wait(3);
+    I.wait(2);
   },
-
+  clearEmailField(){
+    I.doubleClick(this.fields.email)
+    I.pressKey('Backspace')
+  },
+  clearPasswordField(){
+    I.doubleClick(this.fields.password)
+    I.pressKey('Backspace') 
+  },
   goToSignUpPage() {
     I.click(this.buttons.signUpButton);
     I.wait(2);

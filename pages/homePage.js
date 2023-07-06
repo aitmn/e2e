@@ -1,7 +1,6 @@
 const { I } = inject();
-const { modalWindow } = require("../elements/addClientModal");
-const { offersSideBarElement } = require("../elements/offersSideBar");
 const assert = require("assert");
+
 module.exports = {
   filter: {
     modalWindow: ".MuiDialog-container.MuiDialog-scrollPaper > div > div",
@@ -27,7 +26,8 @@ module.exports = {
     },
     events: {
       firstElement:
-        ".MuiPaper-rounded:nth-child(1) > div:nth-child(2) > div > div > div > div:nth-child(1)",
+        ".MuiPaper-root:nth-child(1) > div:nth-child(2) > div > div > div > div:nth-child(1)",
+        deleteFirstEvent: ".ScrollbarsCustom > div > div > div > div:nth-child(1) > svg"
     },
     lastChats: {
       lastChat:
@@ -62,9 +62,15 @@ module.exports = {
   clickFilter() {
     I.click(this.slidersElements.requets_offers.filter);
   },
+  clickOffersButton(){
+    I.click(this.slidersElements.requets_offers.offersButton)
+  },
+  clickRequestsButton(){
+    I.click(this.slidersElements.requets_offers.requestsButton)
+  },
   useFilter() {
     I.click(this.filter.searchField);
-    I.fillField(this.filter.searchField, "client");
+    I.fillField(this.filter.searchField, "7072name");
     I.wait(1);
     I.click(this.filter.firstItem);
     I.click(this.filter.submitButton);
@@ -90,22 +96,24 @@ module.exports = {
   },
   goToDrafts() {
     I.click(".MuiPaper-root:nth-child(7) > div > div > div:nth-child(2) > button:nth-child(2)")
+    I.wait(1)
     I.see('Черновики')
     I.click(".MuiBox-root > div > div > div > span > div > div:nth-child(1) > div:nth-child(1) > button ")
   },
   goToFirstEvent() {
     I.click(this.slidersElements.events.firstElement)
   },
+  deleteEvent(){
+    I.click(this.slidersElements.events.deleteFirstEvent)
+  },
   goToLastChat() {
     I.click(this.slidersElements.lastChats.lastChat);
   },
-  async deleteFastOrder() {
+    deleteFastOrder() {
     I.click(this.slidersElements.fastOrders.editButton);
     I.wait(1)
-    const isActive = await I.grabAttributeFrom(this.slidersElements.fastOrders.editButton, 'aria-pressed')
-    assert.equal(isActive, 'true')
-    I.seeElement(this.slidersElements.fastOrders.deleteButton);
-    I.click(this.slidersElements.fastOrders.deleteButton);
+    I.click(".carousel__slide.carousel__slide--visible > div > div > .MuiBox-root:nth-child(2) > div > button");
+    I.pressKey("Enter")
   },
   addNewFastOrder(){
     I.click("div:nth-child(2) > .carousel > .MuiBox-root > button:nth-child(2)")
@@ -115,6 +123,7 @@ module.exports = {
   },
   goToFastOrder() {
     I.click(this.slidersElements.fastOrders.firstElement);
+    I.wait(2);
   },
   goToLastOrder() {
     I.click(this.slidersElements.lastOrders.firstElement);

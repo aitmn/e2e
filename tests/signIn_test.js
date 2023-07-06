@@ -1,11 +1,10 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const { faker } = require("@faker-js/faker");
 const { hooks } = require("../helpers/hooks");
+const passwordRecoveryPage = require("../pages/passwordRecoveryPage");
+
 Feature("Успешная аторизация, с переходом на стратовую страницу");
 
 Before(hooks.basePage);
-
 Scenario("Успешная авторизация клиентом", ({ I, signInPage }) => {
   signInPage.signIn(process.env.CLIENT_EMAIL, process.env.BASE_PASSWORD);
   I.seeInCurrentUrl("/home");
@@ -29,58 +28,40 @@ Scenario("Успешная авторизация партнером", ({ I, sig
 Feature("Авторизация с некорректными данными");
 
 Before(hooks.basePage);
-
 Scenario(
-  'Попытка авторизации с незаполенными полями "Логин", "Пароль"',
+  'Попытка авторизации с незаполенными полями',
   ({ I, signInPage }) => {
-    signInPage.signIn("", "");
+    signInPage.signIn("", ""); // не заполняем оба поля
+    I.seeInCurrentUrl(process.env.BASE_URL);
+    signInPage.signIn("", process.env.BASE_PASSWORD); // не заполняем поле логин
+    I.seeInCurrentUrl(process.env.BASE_URL);
+    signInPage.clearPasswordField()
+    signInPage.signIn(process.env.ADMIN_EMAIL, ""); // не заполняем поле пароль
+    I.seeInCurrentUrl(process.env.BASE_URL);
+    signInPage.clearEmailField()
+    signInPage.signIn(faker.internet.email(10), faker.internet.password(5)); // логинимся с несуществующими данными
     I.seeInCurrentUrl(process.env.BASE_URL);
   }
 );
 
-Scenario(
-  'Попытка авторизации с незаполенным полем "Логин"',
-  ({ I, signInPage }) => {
-    signInPage.signIn("", process.env.BASE_PASSWORD);
-    I.seeInCurrentUrl(process.env.BASE_URL);
-  }
-);
-
-Scenario(
-  'Попытка авторизации с незаполенным полем "Пароль"',
-  ({ I, signInPage }) => {
-    signInPage.signIn(process.env.ADMIN_EMAIL, "");
-    I.seeInCurrentUrl(process.env.BASE_URL);
-  }
-);
-
-Scenario("Попытка авторизации с невалидными данными", ({ I, signInPage }) => {
-  signInPage.signIn(faker.internet.email(10), faker.internet.password(5));
-  I.seeInCurrentUrl(process.env.BASE_URL);
-});
-
-Feature("Переход на другие формы");
+Feature("Проверка переходов на другие страницы");
 
 Before(hooks.basePage);
-
-Scenario("Переход к форме восстановления пароля", ({ I, signInPage }) => {
-  signInPage.goToPasswordRecoveryPage();
-  I.seeInCurrentUrl("/password-recovery");
-});
-
-Scenario("Переход к форме регистрации", ({ I, signInPage }) => {
-  signInPage.goToSignUpPage();
-  I.seeInCurrentUrl("/signup");
-});
-
-Scenario("Переход в телеграм канал", ({ I, signInPage }) => {
-  signInPage.goToTelegram();
-  I.switchToNextTab();
-  I.seeInCurrentUrl(process.env.TELEGRAM_URL);
-});
-
-Scenario("Переход на канал в Дзене", ({ I, signInPage }) => {
-  signInPage.goToDzen();
-  I.switchToNextTab();
-  I.seeInCurrentUrl(process.env.DZEN_URL);
-});
+Scenario(
+  "Переход на другие формы",
+  ({ I, signInPage }) => {
+    signInPage.goToPasswordRecoveryPage(); // переход на страницу восстановления пароля
+    I.seeInCurrentUrl("/password-recovery");
+    passwordRecoveryPage.clickBackButton();
+    signInPage.goToSignUpPage(); // переход на страницу регистрации
+    I.seeInCurrentUrl("/signup");
+    passwordRecoveryPage.clickBackButton();
+    signInPage.goToTelegram(); // переход в телеграм канал
+    I.switchToNextTab();
+    I.seeInCurrentUrl(process.env.TELEGRAM_URL);
+    I.closeCurrentTab();
+    signInPage.goToDzen(); // переход на страницу в Яндекс.Дзен
+    I.switchToNextTab();
+    I.seeInCurrentUrl(process.env.DZEN_URL);
+  }
+);

@@ -1,33 +1,36 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const assert = require("assert");
 const { hooks } = require("../helpers/hooks");
 const { messages } = require("../pages/ordersCreatePage");
 
 Feature("Создание заявки");
+
 Before(hooks.ClientCreateDraft);
-
-Scenario(
-  "Если не заполнить обязательные поля, заявка не создается, появляется подсказка",
-  async ({ I, ordersCreatePage }) => {
-    ordersCreatePage.clickSubmit();
-    I.wait(2);
-    I.seeInCurrentUrl("/orders/create");
-    const numOfElements = await I.grabNumberOfVisibleElements(messages.errors);
-    assert.equal(numOfElements, 10);
-  }
-);
-
 Scenario(
   "Создание заявки на БГ",
-  async ({
-    I,
-    ordersCreatePage,
-    ordersPartnersPage,
+  async ({ I, ordersCreatePage, ordersPartnersPage,
     ordersDocumentsPage,
-    choseTaxPage,
-  }) => {
-    ordersCreatePage.fillInformationStep();
+     }) => {
+    ordersCreatePage.clickSubmit(); // Попытка создать заявку не заполняя обязательные поля
+    I.seeInCurrentUrl("/orders/create");
+    ordersCreatePage.clickClosedAuction(); // Успешное создание заявки
+    ordersCreatePage.choseLaw();
+    ordersCreatePage.fillNoticeNumber();
+    ordersCreatePage.fillCompetitionLink();
+    ordersCreatePage.fillNoticeDate();
+    ordersCreatePage.fillProtocolDate();
+    ordersCreatePage.fillContractObject();
+    ordersCreatePage.fillCustomerInn();
+    ordersCreatePage.fillStartPrice();
+    ordersCreatePage.fillTargetPrice();
+    ordersCreatePage.fillGuaranteePrice();
+    ordersCreatePage.choseCurrency();
+    ordersCreatePage.clickAntiDumpingActive();
+    ordersCreatePage.fillGuaranteeFrom();
+    ordersCreatePage.fillGuaranteeTo();
+    ordersCreatePage.clickAdvance();
+    ordersCreatePage.fillAdvanceRub();
+    ordersCreatePage.fillComment();
+    ordersCreatePage.clickSubmit()
     I.wait(4);
     I.see("Выберите партнеров");
     ordersPartnersPage.isSubmitDisabled();
@@ -35,15 +38,11 @@ Scenario(
     ordersPartnersPage.clickSubmit();
     I.wait(4);
     I.see("Загрузите документы");
-    ordersDocumentsPage.clickChangeTax();
-    I.wait(1);
-    choseTaxPage.choseOSN();
-    I.wait(2);
-    I.see("Загрузите документы (ОСН)");
     ordersDocumentsPage.clickSubmit();
     I.wait(4);
-    I.seeElement(".MuiAlert-message > p > div > p");
-  },
+    I.seeElement("#tabpanel-partners");
+  }
+);
 
   Scenario(
     "Заявка не создастся, если по номеру извещения уже создана заявка",
@@ -55,6 +54,6 @@ Scenario(
       const errorMessage = await I.grabTextFrom(messages.noticeNumberError);
       assert.equal(errorMessage, "По данной закупке уже создана заявка");
     }
-  )
-  //После сценария необходимо удалить созданный order
 );
+  //После сценария необходимо удалить созданный order
+

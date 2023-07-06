@@ -1,5 +1,4 @@
 const { modalWindow } = require("./addClientModal");
-
 const { I } = inject();
 
 module.exports = {

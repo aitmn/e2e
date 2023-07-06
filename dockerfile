@@ -1,5 +1,14 @@
-FROM node:18.14-alpine
+FROM codeceptjs/codeceptjs
+
 WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+RUN npx playwright install
+
 COPY . .
-RUN npm i
-CMD ["codeceptjs", "run", "tests"]
+
+CMD ["npx", "codeceptjs", "run"]
+

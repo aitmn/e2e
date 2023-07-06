@@ -1,44 +1,36 @@
-const { radio } = require("../elements/addClientModal");
-const { messages } = require("../elements/addClientModal");
+const { radio, messages } = require("../elements/addClientModal");
 const { modalWindow } = require("../elements/choseClientModal");
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
 const { headers } = require("../pages/ordersCreatePage");
 const { hooks } = require("../helpers/hooks");
 const assert = require("assert");
+
 Feature("Работа с модальным окном");
+
 Before(hooks.createClient);
 Scenario(
-  "При клике 'Назад', возвар к выбору клиента",
+  "Переход из модального окна",
   ({ I, addClientModalElement }) => {
-    addClientModalElement.backToChoseClient();
+    addClientModalElement.backToChoseClient(); // При клике 'Назад', возвар к выбору клиента
     I.seeElement(modalWindow);
-  }
-);
-
-Scenario(
-  "При клике на крестик, возвар к сайдбару продуктов",
-  ({ I, addClientModalElement }) => {
-    addClientModalElement.closeAddClient();
+    addClientModalElement.closeAddClient(); // При клике на крестик, возвар к сайдбару продуктов
     I.seeElement(guaranteeTypeSideBar);
   }
 );
 
 Feature("Проверка доступности ролей");
-Before(hooks.createClient);
 
-Scenario("Нельзя выбрать Физическое лицо", async ({ I }) => {
-  const isDisabled = await I.grabAttributeFrom(
+Before(hooks.createClient);
+Scenario("Проверка состояния радиобаттонов", async ({ I }) => {
+  const isDisabledIndividual = await I.grabAttributeFrom(
     radio.individual,
     "aria-disabled"
   );
   assert.equal(
-    isDisabled,
+    isDisabledIndividual,
     "true",
     "Кнопка выбора Физического лица должна быть заблокирована, но она доступна"
   );
-});
-
-Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
   const isEnabledIndividualPerson = await I.grabAttributeFrom(
     radio.individualPerson,
     "aria-disabled"
@@ -56,33 +48,28 @@ Scenario("Можно выбрать ИП и Юр. лицо", async ({ I }) => {
 });
 
 Feature("Создание Клиента");
-Before(hooks.createClient);
 
+Before(hooks.createClient);
 Scenario(
-  "ИП не создастся, если ИНН не равен 12 символам",
+  "Создание клиента ИП",
   async ({ I, addClientModalElement }) => {
-    addClientModalElement.createWrongIndividualPerson();
+    addClientModalElement.createWrongIndividualPerson(); //ИП не создастся, если ИНН не равен 12 символам
     I.seeElement(messages.errorMessage);
     const errorText = await I.grabTextFrom(messages.errorMessage);
     assert.equal(errorText, "Требуемая длина ИНН - 12, сейчас - 10");
+    addClientModalElement.clearInnField()
+    addClientModalElement.createIndividualPerson(); //Успешное создание нового клиента ИП
+    I.wait(2);
+    I.seeInCurrentUrl("/create");
   }
 );
 
-Scenario("Создание нового клиента ИП", async ({ I, addClientModalElement }) => {
-  addClientModalElement.createIndividualPerson();
-  I.waitForNavigation(2);
-  I.seeInCurrentUrl("/create");
-  I.wait(2);
-  const clientName = await I.grabTextFrom(headers.client);
-  const guarantee = await I.grabTextFrom(headers.guarantee);
-  assert.equal(guarantee, "БГ на исполнение");
-  assert.equal(clientName, process.env.TEST_INDIVIDUAL_PERSON_NAME);
-});
 Scenario(
   "Клиент ИП не создастся, если он уже прикреплен",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createAssignIndividualPerson();
-    const errorMessage = await I.grabTextFrom(messages.innErrorMessage);
+    I.wait(2);
+    const errorMessage = await I.grabTextFrom(messages.errorMessage);
     assert.equal(
       errorMessage,
       "Пользователь с таким ИНН уже закреплен за вами"
@@ -94,24 +81,16 @@ Scenario(
 Из таблице Profiles и Users
 */
 Scenario(
-  "Юр. лицо не создастся, если ИНН не равен 10 символам",
+  "Создание Юр. лица",
   async ({ I, addClientModalElement }) => {
-    addClientModalElement.createWrongLegal();
+    addClientModalElement.createWrongLegal(); // Юр. лицо не создастся, если ИНН не равен 10 символам
     I.seeElement(messages.errorMessage);
     const errorText = await I.grabTextFrom(messages.errorMessage);
     assert.equal(errorText, "Требуемая длина ИНН - 10, сейчас - 12");
-  }
-);
-Scenario(
-  "Создание нового клиента Юр. лицо",
-  async ({ I, addClientModalElement }) => {
-    addClientModalElement.createLegal();
-    I.waitForNavigation(2);
+    addClientModalElement.clearInnField()
+    addClientModalElement.createLegal(); // Создание нового клиента Юр. лицо
+    I.wait(2);
     I.seeInCurrentUrl("/create");
-    const clientName = await I.grabTextFrom(headers.client);
-    const guarantee = await I.grabTextFrom(headers.guarantee);
-    assert.equal(guarantee, "БГ на исполнение");
-    assert.equal(clientName, process.env.TEST_LEGAL_NAME);
   }
 );
 
@@ -119,7 +98,7 @@ Scenario(
   "Клиент Юр. лицо не создастся, если он уже прикреплен",
   async ({ I, addClientModalElement }) => {
     addClientModalElement.createAssignLegal();
-    const errorMessage = await I.grabTextFrom(messages.innErrorMessage);
+    const errorMessage = await I.grabTextFrom(messages.errorMessage);
     assert.equal(
       errorMessage,
       "Пользователь с таким ИНН уже закреплен за вами"

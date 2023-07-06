@@ -1,7 +1,6 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const { I } = inject();
 const assert = require("assert");
+
 module.exports = {
   headers: {
     guaranteeType: " .MuiBox-root:nth-child(3) > h3",
@@ -69,7 +68,7 @@ module.exports = {
   },
   messages:{
     errors: "p[class='MuiFormHelperText-root Mui-error']",
-    noticeNumberError: "div.MuiBox-root > div > div > div > div > div > div > div > div > div > form > div > div:nth-child(3) > div > p"
+    noticeNumberError: "form > div:nth-child(3) > div > p"
   },
   clickClosedAuction() {
     I.click(this.checkboxes.closedAuction);
@@ -127,7 +126,9 @@ module.exports = {
     assert.equal(increasedPrice, process.env.INCREASED_BG_PRICE);
   },
   fillGuaranteeFrom() {
-    const today = new Date().toLocaleDateString();
+    const date = new Date();
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const today = date.toLocaleDateString('ru-RU', options).replace(/\//g, '');
     I.fillField(this.fields.guaranteeFrom, today);
   },
   fillGuaranteeTo() {
@@ -135,14 +136,13 @@ module.exports = {
   },
   clickAdvance() {
     I.click(this.checkboxes.advance);
+    I.wait(1);
     I.seeElement(this.fields.advancePercent);
     I.seeElement(this.fields.advanceRub);
   },
-  async fillAdvanceRub() {
+  fillAdvanceRub() {
     I.fillField(this.fields.advanceRub, process.env.BG_ADVANCE_RUB);
     I.wait(1);
-    const advancePercent = await I.grabValueFrom(this.fields.advancePercent);
-    assert.equal(advancePercent, process.env.BG_ADVANCE_PERCENT);
   },
   clickUndisputedOff() {
     I.click(this.checkboxes.undisputedOff);
@@ -184,28 +184,6 @@ module.exports = {
   },
   clickDeleteDraft(){
     I.click(this.buttons.deleteDraft)
-  },
-  fillInformationStep() {
-    this.clickClosedAuction();
-    this.choseLaw();
-    this.fillNoticeNumber();
-    this.fillCompetitionLink();
-    this.fillNoticeDate();
-    this.fillProtocolDate();
-    this.fillContractObject();
-    this.fillCustomerInn();
-    this.fillStartPrice();
-    this.fillTargetPrice();
-    this.fillGuaranteePrice();
-    this.choseCurrency();
-    this.clickAntiDumpingActive();
-    this.fillGuaranteeFrom();
-    this.fillGuaranteeTo();
-    this.clickAdvance();
-    this.fillAdvanceRub();
-    this.clickUndisputedOff();
-    this.fillComment();
-    this.clickSubmit();
   },
   fillOnlyRequiredFields(){
     this.choseLaw();

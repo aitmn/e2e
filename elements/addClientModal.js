@@ -1,5 +1,6 @@
 const { I } = inject();
 const { faker } = require("@faker-js/faker");
+
 module.exports = {
   modalWindow: ".MuiDialog-paper > div",
   fields: {
@@ -30,7 +31,7 @@ module.exports = {
     I.fillField(this.fields.inn, process.env.TEST_INDIVIDUAL_PERSON_INN);
     I.click(this.buttons.submit);
     I.seeInField(this.fields.name, process.env.TEST_INDIVIDUAL_PERSON_NAME);
-    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER);
+    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER_INDIVIDUAL_PERSON);
     I.fillField(this.fields.email, faker.internet.email());
     I.click(this.buttons.sendEmail);
     I.click(this.buttons.submit);
@@ -51,7 +52,7 @@ module.exports = {
     I.fillField(this.fields.inn, process.env.TEST_LEGAL_INN);
     I.click(this.buttons.submit);
     I.seeInField(this.fields.name, process.env.TEST_LEGAL_NAME);
-    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER);
+    I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER_LEGAL);
     I.fillField(this.fields.email, faker.internet.email());
     I.click(this.buttons.sendEmail);
     I.click(this.buttons.submit);
@@ -61,6 +62,7 @@ module.exports = {
     I.click(this.radio.legal);
     I.fillField(this.fields.inn, process.env.TEST_LEGAL_INN);
     I.click(this.buttons.submit);
+    I.wait(1);
   },
 
   createWrongLegal() {
@@ -75,5 +77,9 @@ module.exports = {
   },
   closeAddClient() {
     I.click(this.buttons.close);
+  },
+  clearInnField(){
+    I.doubleClick(this.fields.inn)
+    I.pressKey('Backspace')
   },
 };
