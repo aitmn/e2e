@@ -11,3 +11,4 @@ RUN npx playwright install
 COPY . .
 
 CMD ["npx", "codeceptjs", "run"]
+
