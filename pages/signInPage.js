@@ -1,7 +1,7 @@
 const { I } = inject();
 
 module.exports = {
-  //элементы страницы
+
   fields: {
     email: "input[name=email]",
     password: "input[name=password]",
@@ -15,7 +15,6 @@ module.exports = {
     dzenButton: '[href="https://dzen.ru/finleo"]',
   },
 
-  //описание методов
   signIn(email, password) {
     I.fillField(this.fields.email, email);
     I.fillField(this.fields.password, password);

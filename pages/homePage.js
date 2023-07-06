@@ -26,7 +26,8 @@ module.exports = {
     },
     events: {
       firstElement:
-        ".MuiPaper-rounded:nth-child(1) > div:nth-child(2) > div > div > div > div:nth-child(1)",
+        ".MuiPaper-root:nth-child(1) > div:nth-child(2) > div > div > div > div:nth-child(1)",
+        deleteFirstEvent: ".ScrollbarsCustom > div > div > div > div:nth-child(1) > svg"
     },
     lastChats: {
       lastChat:
@@ -102,16 +103,17 @@ module.exports = {
   goToFirstEvent() {
     I.click(this.slidersElements.events.firstElement)
   },
+  deleteEvent(){
+    I.click(this.slidersElements.events.deleteFirstEvent)
+  },
   goToLastChat() {
     I.click(this.slidersElements.lastChats.lastChat);
   },
-  async deleteFastOrder() {
+    deleteFastOrder() {
     I.click(this.slidersElements.fastOrders.editButton);
     I.wait(1)
-    const isActive = await I.grabAttributeFrom(this.slidersElements.fastOrders.editButton, 'aria-pressed')
-    assert.equal(isActive, 'true')
-    I.seeElement(this.slidersElements.fastOrders.deleteButton);
-    I.click(this.slidersElements.fastOrders.deleteButton);
+    I.click(".carousel__slide.carousel__slide--visible > div > div > .MuiBox-root:nth-child(2) > div > button");
+    I.pressKey("Enter")
   },
   addNewFastOrder(){
     I.click("div:nth-child(2) > .carousel > .MuiBox-root > button:nth-child(2)")

@@ -9,7 +9,7 @@ Scenario(
   "Создание заявки на БГ",
   async ({ I, ordersCreatePage, ordersPartnersPage,
     ordersDocumentsPage,
-    choseTaxPage, }) => {
+     }) => {
     ordersCreatePage.clickSubmit(); // Попытка создать заявку не заполняя обязательные поля
     I.seeInCurrentUrl("/orders/create");
     ordersCreatePage.clickClosedAuction(); // Успешное создание заявки
@@ -40,7 +40,7 @@ Scenario(
     I.see("Загрузите документы");
     ordersDocumentsPage.clickSubmit();
     I.wait(4);
-    I.seeElement(".MuiAlert-message > p > div > p");
+    I.seeElement("#tabpanel-partners");
   }
 );
 

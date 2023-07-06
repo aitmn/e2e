@@ -68,7 +68,7 @@ module.exports = {
   },
   messages:{
     errors: "p[class='MuiFormHelperText-root Mui-error']",
-    noticeNumberError: "div.MuiBox-root > div > div > div > div > div > div > div > div > div > form > div > div:nth-child(3) > div > p"
+    noticeNumberError: "form > div:nth-child(3) > div > p"
   },
   clickClosedAuction() {
     I.click(this.checkboxes.closedAuction);

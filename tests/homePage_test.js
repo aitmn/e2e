@@ -63,8 +63,8 @@ Scenario(
 Feature("Проверка блока 'События'");
 
 Before(hooks.agentSignIn);
-Scenario.only("При клике переход в заявку работает", ({ I, homePage }) => {
-  I.wait(2);
+Scenario("При клике переход в заявку работает", ({ I, homePage }) => {
+  I.wait(3);
   homePage.goToFirstEvent();
   I.wait(1);
   I.seeInCurrentUrl("/orders");
@@ -73,7 +73,7 @@ Scenario.only("При клике переход в заявку работает
 Feature("Проверка блока 'Последние заявки'");
 
 Before(hooks.agentSignIn);
-Scenario("При клике на номер заявку, переход в нее", ({ I, homePage }) => {
+Scenario("При клике на номер заявки, переход в нее", ({ I, homePage }) => {
   I.wait(2);
   homePage.goToLastOrder();
   I.wait(1);
@@ -92,19 +92,17 @@ Scenario(
 
 Feature("Проверка блока 'Быстрое создание заявки'");
 
-Before(hooks.adminSignIn);
-Before(hooks.homePage);
+Before(hooks.agentSignIn);
 Scenario("Работа с шаблонами", ({ I, homePage }) => {
-  I.wait(2);
+  I.wait(3);
   homePage.goToFastOrder(); // Создание заявки из готового шаблона
   I.wait(2);
   I.seeElement(modalWindow);
-  hooks.homePage();
-  I.wait(2);
+  I.amOnPage("/home")
+  I.wait(2)
   homePage.addNewFastOrder(); // Создание нового шаблона
   I.seeElement(".//span[ancestor::p[contains(., 'БГ на участие')]]");
-  homePage.deleteFastOrder();
+  homePage.deleteFastOrder(); // Удаление шаблона
   I.wait(1);
-  I.pressKey("Enter");
-  I.seeInCurrentUrl("/home");
+  I.dontSeeElement(".//span[ancestor::p[contains(., 'БГ на участие')]]")
 });
