@@ -5,6 +5,6 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     environment:
-      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
+      FRONTEND_URL: ${FRONTEND_URL:-https://release.crm.finleo.ru}
 
 
