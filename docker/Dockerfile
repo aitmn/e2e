@@ -8,7 +8,5 @@ RUN npm ci
 
 COPY . .
 
-RUN "printenv"
-
 CMD ["npm", "run", "test"]
 
