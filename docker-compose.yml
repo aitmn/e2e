@@ -1,8 +1,10 @@
-version: '2'
+version: "3.8"
 services:
   codeceptjs:
-    image: codeceptjs/codeceptjs
-    volumes:
-      - .:/tests
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3000}
 
 

@@ -4,11 +4,11 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
-
-RUN npx playwright install
+RUN npm ci
 
 COPY . .
 
-CMD ["npx", "codeceptjs", "run"]
+RUN "printenv"
+
+CMD ["npm", "run", "test"]
 
