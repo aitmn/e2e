@@ -1,3 +1,5 @@
 node_modules
 output
 .history
+.DS_Store
+.env

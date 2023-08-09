@@ -46,6 +46,12 @@ module.exports = {
       allOrdersButton:
         ".MuiPaper-root.MuiPaper-rounded > .MuiBox-root > a",
     },
+    banners: {
+      banner: ".MuiPaper-root.MuiPaper-rounded > div > div > div > div > div > div > div > div > img"
+    },
+    news: {
+      moreButton: " .MuiPaper-root.MuiPaper-rounded > a > button"
+    },
     personalManager: {
       social: {
         emailButton:
@@ -132,4 +138,12 @@ module.exports = {
   goToAllOrders() {
     I.click(this.slidersElements.lastOrders.allOrdersButton);
   },
+  clickOnBanner(){
+    I.waitForElement(this.slidersElements.banners.banner, 10)
+    I.click(this.slidersElements.banners.banner)
+  },
+  goToNews(){
+    I.waitForElement(this.slidersElements.news.moreButton, 10)
+    I.click(this.slidersElements.news.moreButton)
+  }
 };
