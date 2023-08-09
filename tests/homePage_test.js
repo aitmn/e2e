@@ -118,7 +118,7 @@ Scenario(
 Feature("Проверка блока новости");
 
 Before(hooks.agentSignIn);
-Scenario.only("Работает переход в новость", ({ I, homePage, newsPage }) => {
+Scenario("Работает переход в новость", ({ I, homePage, newsPage }) => {
 	homePage.goToNews();
 	I.switchToNextTab(1);
 	newsPage.clickBackButton();
