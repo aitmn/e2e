@@ -1,8 +1,8 @@
+const assert = require("assert");
 const { hooks } = require("../helpers/hooks");
 const { slidersElements } = require("../pages/homePage");
 const { modalWindow } = require("../elements/addClientModal");
 const { fields } = require("../pages/newsPage");
-const assert = require("assert");
 const { HOME_PAGE_URL } = require("../constants/urls");
 
 Feature("Проверка блока 'Работа по заявкам'");

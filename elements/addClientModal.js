@@ -30,6 +30,7 @@ module.exports = {
     I.click(this.radio.individualPerson);
     I.fillField(this.fields.inn, process.env.TEST_INDIVIDUAL_PERSON_INN);
     I.click(this.buttons.submit);
+    I.waitForElement(this.fields.phone, 2)
     I.seeInField(this.fields.name, process.env.TEST_INDIVIDUAL_PERSON_NAME);
     I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER_INDIVIDUAL_PERSON);
     I.fillField(this.fields.email, faker.internet.email());
@@ -51,6 +52,7 @@ module.exports = {
     I.click(this.radio.legal);
     I.fillField(this.fields.inn, process.env.TEST_LEGAL_INN);
     I.click(this.buttons.submit);
+    I.waitForElement(this.fields.phone, 2)
     I.seeInField(this.fields.name, process.env.TEST_LEGAL_NAME);
     I.appendField(this.fields.phone, process.env.TEST_PHONE_NUMBER_LEGAL);
     I.fillField(this.fields.email, faker.internet.email());

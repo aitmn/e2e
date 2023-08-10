@@ -1,7 +1,6 @@
 const { radio, messages } = require("../elements/addClientModal");
 const { modalWindow } = require("../elements/choseClientModal");
 const { guaranteeTypeSideBar } = require("../elements/guaranteesSideBar");
-const { headers } = require("../pages/ordersCreatePage");
 const { hooks } = require("../helpers/hooks");
 const assert = require("assert");
 
